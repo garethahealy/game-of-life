@@ -1,12 +1,29 @@
+# IntelliJ IDEA #
+.idea/
+*.iml
+
+# Eclipse Files #
+.metadata
+.settings
+.project
+.classpath
+RemoteSystemsTempFiles
+
+# General Java Folders #
+bin/
+target/
+
+# Java Package Files #
+*.jar
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# General #
+tmp/
+*.tmp
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# AMQ Performance Testing #
+JmsConsumer_*.xml
+JmsProducer_*.xml
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Testing #
+.ekstazi/
