@@ -1,5 +1,10 @@
 # game-of-life
 
+Build
+======
+- mvn clean install
+- mvn spring-boot:run
+
 Docs
 ======
 https://spring.io/guides/gs/spring-boot/
