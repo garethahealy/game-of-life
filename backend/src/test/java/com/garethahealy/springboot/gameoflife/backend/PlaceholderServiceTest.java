@@ -1,6 +1,6 @@
 /*
  * #%L
- * frontend
+ * backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%
@@ -17,15 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.frontend;
+package com.garethahealy.springboot.gameoflife.backend;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.Assert;
+import org.junit.Test;
 
-@SpringBootApplication
-public class Application {
+public class PlaceholderServiceTest {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    @Test
+    public void something() {
+        PlaceholderService service = new PlaceholderService();
+        Assert.assertNotNull(service.something());
     }
 }
