@@ -19,7 +19,7 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend;
 
-import com.garethahealy.springboot.gameoflife.frontend.controllers.HelloController;
+import com.garethahealy.springboot.gameoflife.frontend.controllers.IndexController;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -35,13 +35,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
-public class HelloControllerTest {
+public class IndexControllerTest {
 
     private MockMvc mvc;
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new IndexController()).build();
     }
 
     //@Test

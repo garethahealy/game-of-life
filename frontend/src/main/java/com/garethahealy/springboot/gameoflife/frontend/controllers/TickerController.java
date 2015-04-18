@@ -19,18 +19,20 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
-import org.springframework.ui.ModelMap;
+import com.garethahealy.springboot.gameoflife.backend.PlaceholderService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-public class FirstPageController {
+public class TickerController {
 
-    @RequestMapping(value = "/firstPage")
-    public ModelAndView firstPage(ModelMap model) {
-        model.addAttribute("message", "blah Spring Boot Hello World!");
+    @Autowired
+    private PlaceholderService placeholderService;
 
-        return new ModelAndView("index");
+    @RequestMapping("/tick")
+    public String helloWorld() {
+        return placeholderService.something();
     }
 }

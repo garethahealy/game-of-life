@@ -6,6 +6,9 @@ Tech
 =================
 http://projects.spring.io/spring-boot/
 http://d3js.org
+http://requirejs.org
+http://jquery.com
+https://github.com/jchavannes/jquery-timer
 
 Build
 =================

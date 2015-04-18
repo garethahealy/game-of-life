@@ -19,20 +19,18 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
-import com.garethahealy.springboot.gameoflife.backend.PlaceholderService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
-public class HelloController {
+@Controller
+public class IndexController {
 
-    @Autowired
-    private PlaceholderService placeholderService;
+    @RequestMapping(value = "/")
+    public ModelAndView firstPage(ModelMap model) {
+        model.addAttribute("message", "Game of Life");
 
-    @RequestMapping("/hello")
-    public String helloWorld() {
-        return placeholderService.something();
+        return new ModelAndView("index");
     }
 }
