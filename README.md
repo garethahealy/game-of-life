@@ -1,12 +1,19 @@
 # game-of-life
+=================
+http://en.wikipedia.org/wiki/Conway's_Game_of_Life
+
+Tech
+=================
+http://projects.spring.io/spring-boot/
+http://d3js.org
 
 Build
-======
-- mvn clean install
-- mvn spring-boot:run
+=================
+- mvn clean install package
+- mvn spring-boot:run (within frontend)
 
 Docs
-======
+=================
 https://spring.io/guides/gs/spring-boot/
 http://docs.spring.io/spring-boot/docs/current/reference/html/getting-started-first-application.html
 https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples
