@@ -92,18 +92,18 @@ public class Cell {
             }
         }
 
-        LOG.info("aliveNeighbours: " + aliveNeighbours + " / " +  getId());
+        LOG.info("aliveNeighbours: " + aliveNeighbours + " / " +  getId() + " / " + state);
 
         if (state == CellState.ALIVE) {
             if (aliveNeighbours < 2) {
                 kill(Rules.UNDER_POPULATION);
-            } else if (aliveNeighbours == 2 || aliveNeighbours == 3) {
+            } else if (aliveNeighbours.equals(2) || aliveNeighbours.equals(3)) {
                 resurrect(Rules.LIVE_ON);
             } else if (aliveNeighbours > 3) {
                 kill(Rules.OVERCROWDING);
             }
-        } else if (state == CellState.ALIVE) {
-            if (aliveNeighbours == 3) {
+        } else if (state == CellState.DEAD) {
+            if (aliveNeighbours.equals(3)) {
                 resurrect(Rules.REPRODUCTION);
             }
         }
