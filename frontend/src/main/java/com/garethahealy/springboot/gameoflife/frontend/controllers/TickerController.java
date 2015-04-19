@@ -33,7 +33,7 @@ public class TickerController {
 
     @RequestMapping("/tick")
     public String tick() {
-        return boardService.tick();
+        return boardService.nextGeneration();
     }
 
 }

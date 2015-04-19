@@ -28,6 +28,19 @@
     <script src="https://raw.githubusercontent.com/jchavannes/jquery-timer/master/jquery.timer.js" charset="utf-8"></script>
     <script charset="utf-8">
         $(document).ready(function () {
+
+            var board = d3.select("#board")
+                .append("svg:svg")
+                .attr("width", 100)
+                .attr("height", 100);
+
+            board.append("svg:rect")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", "10")
+                .attr("height", "10")
+                .style("fill", "");
+
             var timer = $.timer(function () {
                 $.get("/tick", function (response) {
                     $('#gof').html(response);
@@ -35,15 +48,19 @@
             });
 
             timer.set({
-                time: 5000,
+                time: 1000,
                 autostart: true
             });
         });
+
+
     </script>
     <title>Game Of Life</title>
 </head>
 <body>
-    <h3>${message}</h3>
-    <div id="gof">${gof}</div>
+<h3>${message}</h3>
+
+<div id="gof">${gof}</div>
+<div id="board"></div>
 </body>
 </html>

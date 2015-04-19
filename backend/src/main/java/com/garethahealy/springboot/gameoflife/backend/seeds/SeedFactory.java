@@ -19,22 +19,13 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import java.util.List;
+public final class SeedFactory {
 
-import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
-import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
-import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
+    private SeedFactory() {
 
-public class ThreeLineSeed implements Seed {
-
-    public void process(GameBoard board, List<Cell> cells) {
-        board.getCellAt(1, 1).resurrect(Rules.UNDER_POPULATION);
-        board.getCellAt(2, 1).resurrect(Rules.UNDER_POPULATION);
-        board.getCellAt(3, 1).resurrect(Rules.UNDER_POPULATION);
-
-        //Commit
-        for (Cell current : cells) {
-            current.commitState();
-        }
+    }
+    
+    public static Seed get(String value) {
+        return new GosperGliderGunSeed();
     }
 }

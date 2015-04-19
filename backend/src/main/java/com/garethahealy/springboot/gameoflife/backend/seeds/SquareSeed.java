@@ -33,6 +33,7 @@ public class SquareSeed implements Seed {
         board.getCellAt(2, 2).resurrect(Rules.UNDER_POPULATION);
         board.getCellAt(1, 2).resurrect(Rules.UNDER_POPULATION);
 
+        //Commit
         for (Cell current : cells) {
             current.commitState();
         }

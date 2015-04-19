@@ -29,7 +29,7 @@ public class BoardService {
     private GameBoard board;
 
     public BoardService() {
-        this.board = new GameBoard(10);
+        this.board = new GameBoard(50);
         this.board.init();
     }
 
@@ -37,7 +37,7 @@ public class BoardService {
         return board.print();
     }
 
-    public String tick() {
+    public String nextGeneration() {
         board.tick();
 
         return board.print();
