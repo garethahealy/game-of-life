@@ -27,6 +27,6 @@ public class BoardServiceTest {
     @Test
     public void tick() {
         BoardService service = new BoardService();
-        Assert.assertNotNull(service.tick());
+        Assert.assertNotNull(service.nextGeneration());
     }
 }

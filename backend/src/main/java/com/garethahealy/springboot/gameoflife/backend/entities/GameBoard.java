@@ -81,14 +81,12 @@ public class GameBoard {
     public String print() {
         List<String> rows = new ArrayList<String>();
 
-        for (Integer y = 0; y < this.size; y++) {
+        for (Integer yCord = 0; yCord < this.size; yCord++) {
             List<String> row = new ArrayList<String>();
 
-            for (Integer x = 0; x < this.size; x++) {
-                Cell cell = getCellAt(x, y);
-                String representation = cell.getState() == CellState.ALIVE ? "<strong>1</strong>" : "0";
-
-                row.add(representation);
+            for (Integer xCord = 0; xCord < this.size; xCord++) {
+                Cell cell = getCellAt(xCord, yCord);
+                row.add(cell.getState() == CellState.ALIVE ? "<strong>1</strong>" : "0");
             }
 
             rows.add(StringUtils.join(row, " | "));
