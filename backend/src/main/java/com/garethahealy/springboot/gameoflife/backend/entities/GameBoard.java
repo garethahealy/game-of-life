@@ -25,6 +25,7 @@ import java.util.List;
 import com.garethahealy.springboot.gameoflife.backend.enums.CellState;
 import com.garethahealy.springboot.gameoflife.backend.seeds.Seed;
 import com.garethahealy.springboot.gameoflife.backend.seeds.SquareSeed;
+import com.garethahealy.springboot.gameoflife.backend.seeds.ThreeLineSeed;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -50,8 +51,8 @@ public class GameBoard {
             }
         }
 
-        Seed seed = new SquareSeed();
-        seed.process(cells);
+        Seed seed = new ThreeLineSeed();
+        seed.process(this, cells);
     }
 
     public Cell getCellAt(Integer xCords, Integer yCords) {

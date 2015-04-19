@@ -65,13 +65,13 @@ public class Cell {
     public void kill(Rules reason) {
         this.nextState = CellState.DEAD;
 
-        LOG.info("Killing: " + getId());
+        LOG.info("Killing: " + reason + " / " + getId());
     }
 
     public void resurrect(Rules reason) {
         this.nextState = CellState.ALIVE;
 
-        LOG.info("Resurrecting: " + getId());
+        LOG.info("Resurrecting: " + reason + " / " + getId());
     }
 
     public void commitState() {
@@ -96,22 +96,14 @@ public class Cell {
 
         if (state == CellState.ALIVE) {
             if (aliveNeighbours < 2) {
-                LOG.info("aliveNeighbours < 2: " + getId());
-
                 kill(Rules.UNDER_POPULATION);
             } else if (aliveNeighbours == 2 || aliveNeighbours == 3) {
-                LOG.info("aliveNeighbours == 2 || aliveNeighbours == 3: " + getId());
-
                 resurrect(Rules.LIVE_ON);
             } else if (aliveNeighbours > 3) {
-                LOG.info("aliveNeighbours > 3: " + getId());
-
                 kill(Rules.OVERCROWDING);
             }
         } else if (state == CellState.ALIVE) {
             if (aliveNeighbours == 3) {
-                LOG.info("aliveNeighbours == 3: " + getId());
-
                 resurrect(Rules.REPRODUCTION);
             }
         }
