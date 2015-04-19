@@ -1,6 +1,6 @@
 /*
  * #%L
- * frontend
+ * backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%
@@ -17,23 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.frontend.controllers;
+package com.garethahealy.springboot.gameoflife.backend.enums;
 
-import com.garethahealy.springboot.gameoflife.backend.services.BoardService;
+public enum Rules {
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+    //Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+    UNDER_POPULATION,
 
-@RestController
-public class TickerController {
+    //Any live cell with two or three live neighbours lives on to the next generation.
+    LIVE_ON,
 
-    @Autowired
-    private BoardService boardService;
+    //Any live cell with more than three live neighbours dies, as if by overcrowding.
+    OVERCROWDING,
 
-    @RequestMapping("/tick")
-    public String tick() {
-        return boardService.tick();
-    }
-
+    //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+    REPRODUCTION
 }

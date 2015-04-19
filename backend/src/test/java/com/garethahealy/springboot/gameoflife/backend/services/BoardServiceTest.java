@@ -1,6 +1,6 @@
 /*
  * #%L
- * frontend
+ * backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%
@@ -17,23 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.frontend.controllers;
+package com.garethahealy.springboot.gameoflife.backend.services;
 
-import com.garethahealy.springboot.gameoflife.backend.services.BoardService;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+public class BoardServiceTest {
 
-@RestController
-public class TickerController {
-
-    @Autowired
-    private BoardService boardService;
-
-    @RequestMapping("/tick")
-    public String tick() {
-        return boardService.tick();
+    @Test
+    public void tick() {
+        BoardService service = new BoardService();
+        Assert.assertNotNull(service.tick());
     }
-
 }

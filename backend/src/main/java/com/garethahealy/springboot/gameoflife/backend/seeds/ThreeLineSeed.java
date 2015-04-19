@@ -17,16 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.backend;
+package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import org.junit.Assert;
-import org.junit.Test;
+import java.util.List;
 
-public class PlaceholderServiceTest {
+import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
+import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
 
-    @Test
-    public void something() {
-        PlaceholderService service = new PlaceholderService();
-        Assert.assertNotNull(service.something());
+public class ThreeLineSeed implements Seed {
+
+    public void process(List<Cell> cells) {
+        for (Cell current : cells) {
+            if (current.getyCords().equals(1)) {
+                if (current.getxCords() < 3) {
+                    current.resurrect(Rules.LIVE_ON);
+                }
+            }
+        }
+
+        for (Cell current : cells) {
+            current.commitState();
+        }
     }
 }

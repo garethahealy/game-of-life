@@ -1,6 +1,6 @@
 /*
  * #%L
- * frontend
+ * backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%
@@ -17,23 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.frontend.controllers;
+package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import com.garethahealy.springboot.gameoflife.backend.services.BoardService;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 
-@RestController
-public class TickerController {
+public interface Seed {
 
-    @Autowired
-    private BoardService boardService;
-
-    @RequestMapping("/tick")
-    public String tick() {
-        return boardService.tick();
-    }
-
+    void process(List<Cell> cells);
 }

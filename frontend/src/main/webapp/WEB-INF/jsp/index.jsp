@@ -30,24 +30,12 @@
         $(document).ready(function () {
             var timer = $.timer(function () {
                 $.get("/tick", function (response) {
-                    //alert(response);
-
-                    var sampleSVG = d3.select("#gof")
-                            .append("svg:svg")
-                            .attr("width", 100)
-                            .attr("height", 100);
-
-                    sampleSVG.append("svg:circle")
-                            .style("stroke", "black")
-                            .style("fill", "white")
-                            .attr("r", 40)
-                            .attr("cx", 50)
-                            .attr("cy", 50)
+                    $('#gof').html(response);
                 });
             });
 
             timer.set({
-                time: 1000,
+                time: 5000,
                 autostart: true
             });
         });
@@ -56,6 +44,6 @@
 </head>
 <body>
     <h3>${message}</h3>
-    <div id="gof"></div>
+    <div id="gof">${gof}</div>
 </body>
 </html>

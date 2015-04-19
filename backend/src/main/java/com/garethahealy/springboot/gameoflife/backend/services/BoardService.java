@@ -17,14 +17,35 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.backend;
+package com.garethahealy.springboot.gameoflife.backend.services;
+
+import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class PlaceholderService {
+public class BoardService {
 
-    public String something() {
-        return "hello";
+    private GameBoard board;
+
+    public BoardService() {
+        this.board = new GameBoard(10);
+        this.board.init();
+    }
+
+    public String print() {
+        return board.print();
+    }
+
+    public String tick() {
+        board.tick();
+
+        return board.print();
+    }
+
+    public String reset() {
+        board.init();
+
+        return board.print();
     }
 }
