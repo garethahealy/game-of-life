@@ -26,6 +26,6 @@ public final class SeedFactory {
     }
     
     public static Seed get(String value) {
-        return new GosperGliderGunSeed();
+        return new CsvLoaderSeed();
     }
 }

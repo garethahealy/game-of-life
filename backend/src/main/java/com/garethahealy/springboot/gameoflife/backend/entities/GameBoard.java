@@ -53,7 +53,7 @@ public class GameBoard {
         }
 
         Seed seed = SeedFactory.get("");
-        seed.process(this, cells);
+        seed.process(this);
     }
 
     public Cell getCellAt(Integer xCords, Integer yCords) {

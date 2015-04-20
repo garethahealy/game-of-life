@@ -19,12 +19,9 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import java.util.List;
-
-import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 
 public interface Seed {
 
-    void process(GameBoard board, List<Cell> cells);
+    void process(GameBoard board);
 }

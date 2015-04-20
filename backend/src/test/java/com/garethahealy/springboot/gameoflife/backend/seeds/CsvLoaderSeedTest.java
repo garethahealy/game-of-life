@@ -19,22 +19,15 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import java.util.List;
-
-import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
-import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
 
-public class AllAliveSeed implements Seed {
+import org.junit.Test;
 
-    public void process(GameBoard board) {
-        for (Cell current : board.getCells()) {
-            current.resurrect(Rules.UNDER_POPULATION);
-        }
+public class CsvLoaderSeedTest {
 
-        //Commit
-        for (Cell current : board.getCells()) {
-            current.commitState();
-        }
+    @Test
+    public void test() {
+        GameBoard board = new GameBoard(50);
+        board.init();
     }
 }

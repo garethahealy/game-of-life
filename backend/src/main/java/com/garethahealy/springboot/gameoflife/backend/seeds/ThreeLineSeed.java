@@ -19,21 +19,19 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.seeds;
 
-import java.util.List;
-
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
 
 public class ThreeLineSeed implements Seed {
 
-    public void process(GameBoard board, List<Cell> cells) {
+    public void process(GameBoard board) {
         board.getCellAt(1, 1).resurrect(Rules.UNDER_POPULATION);
         board.getCellAt(2, 1).resurrect(Rules.UNDER_POPULATION);
         board.getCellAt(3, 1).resurrect(Rules.UNDER_POPULATION);
 
         //Commit
-        for (Cell current : cells) {
+        for (Cell current : board.getCells()) {
             current.commitState();
         }
     }
