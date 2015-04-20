@@ -19,7 +19,7 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
-import com.garethahealy.springboot.gameoflife.backend.services.BoardService;
+import com.garethahealy.springboot.gameoflife.backend.services.DefaultBoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @Autowired
-    private BoardService boardService;
+    private DefaultBoardService boardService;
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelMap model) {

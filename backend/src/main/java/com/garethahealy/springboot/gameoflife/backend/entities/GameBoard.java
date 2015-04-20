@@ -20,25 +20,27 @@
 package com.garethahealy.springboot.gameoflife.backend.entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import com.garethahealy.springboot.gameoflife.backend.enums.CellState;
 import com.garethahealy.springboot.gameoflife.backend.seeds.Seed;
 import com.garethahealy.springboot.gameoflife.backend.seeds.SeedFactory;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class GameBoard {
-
-    private static final Logger LOG = LoggerFactory.getLogger(GameBoard.class);
 
     private Integer size;
     private List<Cell> cells;
 
     public GameBoard(Integer size) {
         this.size = size;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public List<Cell> getCells() {
+        return Collections.unmodifiableList(cells);
     }
 
     public void init() {
@@ -57,41 +59,12 @@ public class GameBoard {
     public Cell getCellAt(Integer xCords, Integer yCords) {
         Cell answer = null;
         for (Cell current : cells) {
-            if (current.getxCords().equals(xCords) && current.getyCords().equals(yCords)) {
+            if (current.isHit(xCords, yCords)) {
                 answer = current;
                 break;
             }
         }
 
         return answer;
-    }
-
-    public void tick() {
-        LOG.info("Ticking...");
-
-        for (Cell current : cells) {
-            current.takeTurn();
-        }
-
-        for (Cell current : cells) {
-            current.commitState();
-        }
-    }
-
-    public String print() {
-        List<String> rows = new ArrayList<String>();
-
-        for (Integer yCord = 0; yCord < this.size; yCord++) {
-            List<String> row = new ArrayList<String>();
-
-            for (Integer xCord = 0; xCord < this.size; xCord++) {
-                Cell cell = getCellAt(xCord, yCord);
-                row.add(cell.getState() == CellState.ALIVE ? "<strong>1</strong>" : "0");
-            }
-
-            rows.add(StringUtils.join(row, " | "));
-        }
-
-        return StringUtils.join(rows, "<br/>");
     }
 }

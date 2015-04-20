@@ -17,35 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.springboot.gameoflife.backend.services;
+package com.garethahealy.springboot.gameoflife.backend.transformers;
 
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 
-import org.springframework.stereotype.Component;
+public interface Transformer {
 
-@Component
-public class BoardService {
-
-    private GameBoard board;
-
-    public BoardService() {
-        this.board = new GameBoard(50);
-        this.board.init();
-    }
-
-    public String print() {
-        return board.print();
-    }
-
-    public String nextGeneration() {
-        board.tick();
-
-        return board.print();
-    }
-
-    public String reset() {
-        board.init();
-
-        return board.print();
-    }
+    String transform(GameBoard gameBoard);
 }

@@ -24,6 +24,7 @@ import java.util.List;
 import com.garethahealy.springboot.gameoflife.backend.enums.CellState;
 import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,66 +47,45 @@ public class Cell {
         this.adjacentCoordinates = new AdjacentCoordinates(xCords, yCords);
     }
 
-    private String getId() {
-        return hashCode() + "; x" + xCords + " / y" + yCords;
+    public List<Integer[]> getAdjacentCoordinates() {
+        return adjacentCoordinates.getAllCoordinates();
     }
 
-    public CellState getState() {
-        return state;
+    public boolean isAlive() {
+        return state == CellState.ALIVE;
     }
 
-    public Integer getyCords() {
-        return yCords;
+    public boolean isDead() {
+        return state == CellState.DEAD;
     }
 
-    public Integer getxCords() {
-        return xCords;
+    public boolean isHit(Integer findXCords, Integer findYCords) {
+        return xCords.equals(findXCords) && yCords.equals(findYCords);
     }
 
     public void kill(Rules reason) {
         this.nextState = CellState.DEAD;
 
-        LOG.info("Killing: " + reason + " / " + getId());
+        LOG.info("Killing: " + reason + " / " + toString());
     }
 
     public void resurrect(Rules reason) {
         this.nextState = CellState.ALIVE;
 
-        LOG.info("Resurrecting: " + reason + " / " + getId());
+        LOG.info("Resurrecting: " + reason + " / " + toString());
     }
 
     public void commitState() {
         this.state = this.nextState;
     }
 
-    public void takeTurn() {
-        Integer aliveNeighbours = 0;
-
-        List<Integer[]> cords = this.adjacentCoordinates.getAllCoordinates();
-        for (Integer[] xyCords : cords) {
-            Integer x = xyCords[0];
-            Integer y = xyCords[1];
-
-            Cell found = board.getCellAt(x, y);
-            if (found != null && found.getState() == CellState.ALIVE) {
-                aliveNeighbours++;
-            }
-        }
-
-        LOG.info("aliveNeighbours: " + aliveNeighbours + " / " +  getId() + " / " + state);
-
-        if (state == CellState.ALIVE) {
-            if (aliveNeighbours < 2) {
-                kill(Rules.UNDER_POPULATION);
-            } else if (aliveNeighbours.equals(2) || aliveNeighbours.equals(3)) {
-                resurrect(Rules.LIVE_ON);
-            } else if (aliveNeighbours > 3) {
-                kill(Rules.OVERCROWDING);
-            }
-        } else if (state == CellState.DEAD) {
-            if (aliveNeighbours.equals(3)) {
-                resurrect(Rules.REPRODUCTION);
-            }
-        }
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("xCords", xCords)
+            .append("yCords", yCords)
+            .append("state", state)
+            .append("nextState", nextState)
+            .toString();
     }
 }
