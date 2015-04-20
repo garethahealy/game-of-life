@@ -28,7 +28,6 @@
     <script src="https://raw.githubusercontent.com/jchavannes/jquery-timer/master/jquery.timer.js" charset="utf-8"></script>
     <script charset="utf-8">
         $(document).ready(function () {
-
             var board = d3.select("#board")
                 .append("svg:svg")
                 .attr("width", 100)
@@ -43,9 +42,34 @@
 
             var timer = $.timer(function () {
                 $.get("/tick", function (response) {
-                    $('#gof').html(response);
+                    drawBoard($.parseJSON(response));
                 });
             });
+
+            function drawBoard(cellsResponse) {
+                if (cellsResponse) {
+                    var rows = [];
+                    for(var y = 0; y < cellsResponse.size; y++) {
+                        var row = [];
+                        for(var x = 0; x < cellsResponse.size; x++) {
+                            var cell = $.grep(cellsResponse.cells, function(value, index) {
+                                return x === value.xCords && y === value.yCords;
+                            })[0];
+
+                            var representation = '0';
+                            if(cell.state === 'ALIVE') {
+                                representation = '<strong><span style="display:none">x' + cell.xCord + '/ y' + cell.yCord + '</span>1</strong>';
+                            }
+
+                            row.push(representation);
+                        }
+
+                        rows.push(row.join(' | '));
+                    }
+
+                    $('#gof').html(rows.join("</br>"));
+                }
+            }
 
             timer.set({
                 time: 1000,

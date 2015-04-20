@@ -21,6 +21,8 @@ package com.garethahealy.springboot.gameoflife.backend.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.garethahealy.springboot.gameoflife.backend.enums.CellState;
 import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
 
@@ -32,11 +34,22 @@ public class Cell {
 
     private static final Logger LOG = LoggerFactory.getLogger(Cell.class);
 
+    @JsonProperty
     private CellState state = CellState.DEAD;
+
+    @JsonIgnore
     private CellState nextState = CellState.DEAD;
+
+    @JsonProperty
     private Integer xCords;
+
+    @JsonProperty
     private Integer yCords;
+
+    @JsonIgnore
     private GameBoard board;
+
+    @JsonIgnore
     private AdjacentCoordinates adjacentCoordinates;
 
     public Cell(Integer xCords, Integer yCords, GameBoard board) {
@@ -51,10 +64,12 @@ public class Cell {
         return adjacentCoordinates.getAllCoordinates();
     }
 
+    @JsonIgnore
     public boolean isAlive() {
         return state == CellState.ALIVE;
     }
 
+    @JsonIgnore
     public boolean isDead() {
         return state == CellState.DEAD;
     }
