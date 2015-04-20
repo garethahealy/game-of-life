@@ -19,8 +19,8 @@ Build
 
 TODO
 =================
-add require.js
-draw a "board" via d3
-draw different colours for alive/dead cells via d3
-change data returned to be json, so d3 can accept (x/y and state)
-add unit tests
+- add require.js
+- draw a "board" via d3
+- draw different colours for alive/dead cells via d3
+- change data returned to be json, so d3 can accept (x/y and state)
+- add unit tests
