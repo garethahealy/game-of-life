@@ -29,36 +29,40 @@
     <script charset="utf-8">
         $(document).ready(function () {
             var board = d3.select("#board")
-                .append("svg:svg")
-                .attr("width", 100)
-                .attr("height", 100);
+                    .append("svg:svg")
+                    .attr("width", 100)
+                    .attr("height", 100);
 
             board.append("svg:rect")
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", "10")
-                .attr("height", "10")
-                .style("fill", "");
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", "10")
+                    .attr("height", "10")
+                    .style("fill", "");
 
             var timer = $.timer(function () {
                 $.get("/tick", function (response) {
-                    drawBoard($.parseJSON(response));
+                    var cellsResponse = $.parseJSON(response);
+                    drawBoard(cellsResponse);
+
+                    board.append("svg:rect")
+                            .data(convertToD3Model(cellsResponse));
                 });
             });
 
             function drawBoard(cellsResponse) {
                 if (cellsResponse) {
                     var rows = [];
-                    for(var y = 0; y < cellsResponse.size; y++) {
+                    for (var y = 0; y < cellsResponse.size; y++) {
                         var row = [];
-                        for(var x = 0; x < cellsResponse.size; x++) {
-                            var cell = $.grep(cellsResponse.cells, function(value, index) {
+                        for (var x = 0; x < cellsResponse.size; x++) {
+                            var cell = $.grep(cellsResponse.cells, function (value, index) {
                                 return x === value.xCords && y === value.yCords;
                             })[0];
 
                             var representation = '0';
-                            if(cell.state === 'ALIVE') {
-                                representation = '<strong><span style="display:none">x' + cell.xCord + '/ y' + cell.yCord + '</span>1</strong>';
+                            if (cell.state === 'ALIVE') {
+                                representation = '<strong><span style="display:none">x' + cell.xCords + '/ y' + cell.yCords + '</span>1</strong>';
                             }
 
                             row.push(representation);
@@ -69,6 +73,25 @@
 
                     $('#gof').html(rows.join("</br>"));
                 }
+            }
+
+            function convertToD3Model(cellsResponse) {
+                var data = [];
+                for (var i = 0; i < cellsResponse.cells.length; i++) {
+                    var current = cellsResponse.cells[i];
+
+                    var d3Model = {
+                        "x_axis": current.xCords,
+                        "y_axis": current.yCords,
+                        "width": 10,
+                        "height": 10,
+                        "color": "#424242"
+                    };
+
+                    data.push(d3Model);
+                }
+
+                return d3Model;
             }
 
             timer.set({
