@@ -23,11 +23,8 @@ import java.util.List;
 
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
-import com.garethahealy.springboot.gameoflife.backend.enums.CellState;
 import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
-import com.garethahealy.springboot.gameoflife.backend.transformers.HTMLTransformer;
 import com.garethahealy.springboot.gameoflife.backend.transformers.JsonTransformer;
-import com.garethahealy.springboot.gameoflife.backend.transformers.Transformer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
