@@ -41,7 +41,7 @@
                     .style("fill", "");
 
             var timer = $.timer(function () {
-                $.get("/tick", function (response) {
+                $.get("tick", function (response) {
                     var cellsResponse = $.parseJSON(response);
                     drawBoard(cellsResponse);
 

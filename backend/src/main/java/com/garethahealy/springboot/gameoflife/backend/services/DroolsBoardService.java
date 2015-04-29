@@ -23,21 +23,26 @@ import java.util.List;
 
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
-import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
+import com.garethahealy.springboot.gameoflife.backend.factories.KieSessionFactory;
 import com.garethahealy.springboot.gameoflife.backend.transformers.JsonTransformer;
 
+import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("default")
-public class DefaultBoardService extends AbstractBoardService {
+@Qualifier("drools")
+public class DroolsBoardService extends AbstractMultiThreadedBoardService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultBoardService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DroolsBoardService.class);
 
-    public DefaultBoardService() {
+    @Autowired
+    private KieSessionFactory kieSessionFactory;
+
+    public DroolsBoardService() {
         super(new GameBoard(50), new JsonTransformer());
     }
 
@@ -56,20 +61,17 @@ public class DefaultBoardService extends AbstractBoardService {
             }
         }
 
-        LOG.debug("aliveNeighbours: " + aliveNeighbours + " / " + current.toString());
+        LOG.debug("Calling Kie with aliveNeighbours: " + aliveNeighbours + " / " + current.toString());
 
-        if (current.isAlive()) {
-            if (aliveNeighbours < 2) {
-                current.kill(Rules.UNDER_POPULATION);
-            } else if (aliveNeighbours.equals(2) || aliveNeighbours.equals(3)) {
-                current.resurrect(Rules.LIVE_ON);
-            } else if (aliveNeighbours > 3) {
-                current.kill(Rules.OVERCROWDING);
-            }
-        } else if (current.isDead()) {
-            if (aliveNeighbours.equals(3)) {
-                current.resurrect(Rules.REPRODUCTION);
-            }
+        KieSession session = kieSessionFactory.getStatefulSession();
+
+        try {
+            session.insert(aliveNeighbours);
+            session.insert(current);
+
+            session.fireAllRules();
+        } finally {
+            kieSessionFactory.disposeOf(session);
         }
     }
 }

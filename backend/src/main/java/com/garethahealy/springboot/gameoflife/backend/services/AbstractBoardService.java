@@ -19,6 +19,8 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.services;
 
+import java.util.concurrent.TimeUnit;
+
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 import com.garethahealy.springboot.gameoflife.backend.transformers.Transformer;
@@ -26,9 +28,9 @@ import com.garethahealy.springboot.gameoflife.backend.transformers.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractBoardService {
+public abstract class AbstractBoardService implements BoardService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GameBoard.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractBoardService.class);
 
     protected GameBoard board;
     protected Transformer transformer;
@@ -40,7 +42,11 @@ public abstract class AbstractBoardService {
         this.transformer = transformer;
     }
 
+    protected abstract void takeTurn(Cell current);
+
     protected void tick() {
+        long startTime = System.nanoTime();
+
         LOG.info("Ticking...");
 
         for (Cell current : board.getCells()) {
@@ -50,9 +56,12 @@ public abstract class AbstractBoardService {
         for (Cell current : board.getCells()) {
             current.commitState();
         }
-    }
 
-    protected abstract void takeTurn(Cell current);
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        LOG.info("Method took: {}", TimeUnit.NANOSECONDS.toMillis(duration));
+    }
 
     public String nextGeneration() {
         tick();

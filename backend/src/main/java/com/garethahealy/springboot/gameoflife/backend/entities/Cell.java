@@ -81,13 +81,13 @@ public class Cell {
     public void kill(Rules reason) {
         this.nextState = CellState.DEAD;
 
-        LOG.info("Killing: " + reason + " / " + toString());
+        LOG.debug("Killing: " + reason + " / " + toString());
     }
 
     public void resurrect(Rules reason) {
         this.nextState = CellState.ALIVE;
 
-        LOG.info("Resurrecting: " + reason + " / " + toString());
+        LOG.debug("Resurrecting: " + reason + " / " + toString());
     }
 
     public void commitState() {

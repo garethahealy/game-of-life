@@ -1,0 +1,42 @@
+package com.garethahealy.springboot.gameoflife.backend.rules;
+
+import java.lang.Integer;
+
+import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
+import com.garethahealy.springboot.gameoflife.backend.enums.Rules;
+
+rule "Is Alive - UNDER_POPULATION"
+    dialect "mvel"
+	when
+		$aliveNeighbours : Integer();
+		$cell : Cell(isAlive() && $aliveNeighbours < 2);
+	then
+		$cell.kill(Rules.UNDER_POPULATION);
+end
+
+rule "Is Alive - LIVE_ON"
+    dialect "mvel"
+	when
+		$aliveNeighbours : Integer();
+		$cell : Cell(isAlive() && ($aliveNeighbours == 2 || $aliveNeighbours == 3));
+	then
+		$cell.resurrect(Rules.LIVE_ON);
+end
+
+rule "Is Alive - OVERCROWDING"
+    dialect "mvel"
+	when
+		$aliveNeighbours : Integer();
+		$cell : Cell(isAlive() && $aliveNeighbours > 3);
+	then
+		$cell.kill(Rules.OVERCROWDING);
+end
+
+rule "Is Dead - OVERCROWDING"
+    dialect "mvel"
+	when
+		$aliveNeighbours : Integer();
+		$cell : Cell(isDead() && $aliveNeighbours == 3);
+	then
+		$cell.resurrect(Rules.REPRODUCTION);
+end

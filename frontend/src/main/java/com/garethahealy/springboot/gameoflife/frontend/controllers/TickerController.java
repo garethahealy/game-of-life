@@ -19,9 +19,11 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
+import com.garethahealy.springboot.gameoflife.backend.services.BoardService;
 import com.garethahealy.springboot.gameoflife.backend.services.DefaultBoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TickerController {
 
     @Autowired
-    private DefaultBoardService boardService;
+    @Qualifier("drools")
+    private BoardService boardService;
 
     @RequestMapping("/tick")
     public String tick() {
