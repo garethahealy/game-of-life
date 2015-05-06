@@ -28,6 +28,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
 import com.garethahealy.springboot.gameoflife.backend.threading.CellCommitStateCallable;
@@ -41,9 +44,32 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMultiThreadedBoardService extends AbstractBoardService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractMultiThreadedBoardService.class);
+    private ExecutorService executorService;
 
     public AbstractMultiThreadedBoardService(GameBoard board, Transformer transformer) {
         super(board, transformer);
+    }
+
+    @PostConstruct
+    @Override
+    public void start() {
+        super.start();
+
+        Integer threadCount = board.getSize() / 4;
+        executorService = Executors.newFixedThreadPool(threadCount);
+    }
+
+    @PreDestroy
+    @Override
+    public void stop() {
+        try {
+            executorService.shutdown();
+            executorService.awaitTermination(1, TimeUnit.SECONDS);
+        } catch (InterruptedException ex) {
+            LOG.error(ExceptionUtils.getStackTrace(ex));
+
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override
@@ -51,11 +77,6 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
         long startTime = System.nanoTime();
 
         LOG.info("Ticking multi threaded...");
-
-        Integer threadCount = board.getSize() / 4;
-        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-
-        LOG.info("Thread pool set to: {}", threadCount);
 
         List<Future<Cell>> turnFutures = new ArrayList<Future<Cell>>();
         for (Cell current : board.getCells()) {

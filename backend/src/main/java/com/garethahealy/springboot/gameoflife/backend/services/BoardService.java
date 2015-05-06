@@ -22,4 +22,8 @@ package com.garethahealy.springboot.gameoflife.backend.services;
 public interface BoardService {
 
     String nextGeneration();
+
+    void start();
+
+    void stop();
 }

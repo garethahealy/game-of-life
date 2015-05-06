@@ -19,7 +19,11 @@
  */
 package com.garethahealy.springboot.gameoflife.backend.services;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import com.garethahealy.springboot.gameoflife.backend.entities.Cell;
 import com.garethahealy.springboot.gameoflife.backend.entities.GameBoard;
@@ -37,9 +41,19 @@ public abstract class AbstractBoardService implements BoardService {
 
     public AbstractBoardService(GameBoard board, Transformer transformer) {
         this.board = board;
-        this.board.init();
-
         this.transformer = transformer;
+    }
+
+    @PostConstruct
+    @Override
+    public void start() {
+        this.board.init();
+    }
+
+    @PreDestroy
+    @Override
+    public void stop() {
+
     }
 
     protected abstract void takeTurn(Cell current);
