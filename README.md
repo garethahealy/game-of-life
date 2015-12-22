@@ -1,24 +1,21 @@
+[![Build Status](https://travis-ci.org/garethahealy/game-of-life.svg)](https://travis-ci.org/garethahealy/game-of-life)
+
 # game-of-life
-=================
 - http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 - http://trillions.maya.com/game_of_life/
 
-Tech
-=================
+# Tech
 - http://projects.spring.io/spring-boot/
 - http://d3js.org
 - http://requirejs.org
 - http://jquery.com
 - https://github.com/jchavannes/jquery-timer
 
-Build
-=================
+# Build
 - mvn clean install package
 - mvn spring-boot:run (within frontend)
 
-
-TODO
-=================
+# TODO
 - add require.js
 - draw a "board" via d3
 - draw different colours for alive/dead cells via d3
