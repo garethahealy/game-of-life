@@ -11,7 +11,7 @@
     </parent>
     <artifactId>backend</artifactId>
     <packaging>kjar</packaging>
-    <name>${project.artifactId}</name>
+    <name>GarethHealy :: Game of Life :: Backend</name>
 
     <scm>
         <connection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</connection>
@@ -51,7 +51,7 @@
                         <version>${jbpm-version}</version>
                     </dependency>
                     <dependency>
-                        <!-- add this dependency if there are Decision tables located in the project-->
+                        <!-- add this dependency if there are Decision tables located in the project -->
                         <groupId>org.drools</groupId>
                         <artifactId>drools-decisiontables</artifactId>
                         <version>${drools-version}</version>
@@ -59,7 +59,8 @@
                 </dependencies>
             </plugin>
 
-            <!-- Skip the toplevel code quality checks false positive
+            <!--
+                Skip the toplevel code quality checks false positive
                 Dead store to xCord in com.garethahealy.springboot.gameoflife.backend.entities.GameBoard.print() [com.garethahealy.springboot.gameoflife.backend.entities.GameBoard] At GameBoard.java:[line 84]
             -->
             <plugin>

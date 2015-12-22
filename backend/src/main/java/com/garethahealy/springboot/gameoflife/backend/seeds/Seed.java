@@ -1,6 +1,6 @@
 /*
  * #%L
- * backend
+ * GarethHealy :: Game of Life :: Backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%

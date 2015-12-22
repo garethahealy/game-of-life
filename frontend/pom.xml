@@ -11,7 +11,7 @@
     </parent>
     <artifactId>frontend</artifactId>
     <packaging>war</packaging>
-    <name>${project.artifactId}</name>
+    <name>GarethHealy :: Game of Life :: Frontend</name>
 
     <scm>
         <connection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</connection>

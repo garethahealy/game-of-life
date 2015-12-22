@@ -1,6 +1,6 @@
 /*
  * #%L
- * backend
+ * GarethHealy :: Game of Life :: Backend
  * %%
  * Copyright (C) 2013 - 2015 Gareth Healy
  * %%
@@ -27,6 +27,8 @@ public class BoardServiceTest {
     @Test
     public void tick() {
         DefaultBoardService service = new DefaultBoardService();
+        service.start();
+
         Assert.assertNotNull(service.nextGeneration());
     }
 }
