@@ -25,6 +25,7 @@ import com.garethahealy.springboot.gameoflife.core.services.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,7 @@ public class TickerController {
     @Autowired
     private BoardService boardService;
 
-    @RequestMapping("/tick")
+    @RequestMapping(value = "/tick", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public Cells tick() {
         return boardService.nextGeneration();

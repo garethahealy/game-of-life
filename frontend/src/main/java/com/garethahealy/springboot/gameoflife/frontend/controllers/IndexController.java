@@ -21,23 +21,20 @@ package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
 import com.garethahealy.springboot.gameoflife.core.services.BoardService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
-
     @Autowired
     private BoardService boardService;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelMap model) {
         model.addAttribute("message", "Game of Life");
         model.addAttribute("gof", boardService.print());
@@ -45,7 +42,7 @@ public class IndexController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping("/reset")
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
     public ModelAndView reset(ModelMap model) {
         boardService.reset();
 
