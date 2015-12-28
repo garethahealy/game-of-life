@@ -60,7 +60,7 @@ public abstract class AbstractBoardService implements BoardService {
     protected void tick() {
         long startTime = System.nanoTime();
 
-        LOG.info("Ticking...");
+        LOG.trace("Ticking...");
 
         for (Cell current : board.getCells()) {
             takeTurn(current);
@@ -73,7 +73,7 @@ public abstract class AbstractBoardService implements BoardService {
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
 
-        LOG.info("Method took: {}ns / {}s", duration, TimeUnit.NANOSECONDS.toSeconds(duration));
+        LOG.trace("Method took: {}ns / {}ms / {}s", duration, TimeUnit.NANOSECONDS.toMillis(duration), TimeUnit.NANOSECONDS.toSeconds(duration));
     }
 
     public String nextGeneration() {

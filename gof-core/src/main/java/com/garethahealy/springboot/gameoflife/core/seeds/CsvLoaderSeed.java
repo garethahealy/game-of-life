@@ -82,6 +82,10 @@ public class CsvLoaderSeed implements Seed {
             LOG.error(ExceptionUtils.getStackTrace(ex));
         }
 
+        if (csv == null || csv.isEmpty()) {
+            throw new IllegalArgumentException("CSV is empty");
+        }
+
         return csv;
     }
 }

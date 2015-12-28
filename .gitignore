@@ -27,3 +27,5 @@ JmsProducer_*.xml
 
 # Testing #
 .ekstazi/
+
+logs/

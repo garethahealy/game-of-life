@@ -75,7 +75,7 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
     protected void tick() {
         long startTime = System.nanoTime();
 
-        LOG.info("Ticking multi threaded...");
+        LOG.trace("Ticking multi threaded...");
 
         List<Future<Cell>> turnFutures = new ArrayList<Future<Cell>>();
         for (Cell current : board.getCells()) {
@@ -99,7 +99,7 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
 
-        LOG.info("Method took: {}", TimeUnit.NANOSECONDS.toMillis(duration));
+        LOG.trace("Method took: {}ns / {}ms / {}s", duration, TimeUnit.NANOSECONDS.toMillis(duration), TimeUnit.NANOSECONDS.toSeconds(duration));
     }
 
     private void waitForFutures(List<Future<Cell>> futures) {
