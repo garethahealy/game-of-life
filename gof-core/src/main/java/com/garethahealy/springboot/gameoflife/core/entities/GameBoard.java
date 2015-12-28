@@ -62,21 +62,24 @@ public class GameBoard {
         Seed seed = SeedFactory.get("csv");
         Integer[] seedSize = seed.load(this);
 
-        LOG.trace("BoardWidth {} SeedWidth {}", getWidth(), seedSize[0]);
-        if (getWidth() != seedSize[0]) {
-            LOG.warn("BoardWidth ({}) != SeedWidth ({}). Updating BoardWidth to be same as SeedWidth", getWidth(), seedSize[0]);
-            this.width = seedSize[0];
+        Integer seedWidth = seedSize[0];
+        Integer seedHeight = seedSize[1];
+
+        LOG.trace("BoardWidth {} SeedWidth {}", getWidth(), seedWidth);
+        if (getWidth() != seedWidth) {
+            LOG.warn("BoardWidth ({}) != SeedWidth ({}). Updating BoardWidth to be same as SeedWidth", getWidth(), seedWidth);
+            this.width = seedWidth;
         }
 
-        LOG.trace("BoardHeight {} SeedHeight {}", getHeight(), seedSize[1]);
-        if (getHeight() != seedSize[1]) {
-            LOG.warn("BoardHeight ({}) != SeedHeight ({}). Updating BoardHeight to be same as SeedHeight", getHeight(), seedSize[1]);
-            this.height = seedSize[1];
+        LOG.trace("BoardHeight {} SeedHeight {}", getHeight(), seedHeight);
+        if (getHeight() != seedHeight) {
+            LOG.warn("BoardHeight ({}) != SeedHeight ({}). Updating BoardHeight to be same as SeedHeight", getHeight(), seedHeight);
+            this.height = seedHeight;
         }
 
         this.cells = new ArrayList<Cell>();
-        for (Integer y = 0; y < this.height; y++) {
-            for (Integer x = 0; x < this.width; x++) {
+        for (Integer y = 0; y < getHeight(); y++) {
+            for (Integer x = 0; x < getWidth(); x++) {
                 cells.add(new Cell(x, y));
             }
         }
