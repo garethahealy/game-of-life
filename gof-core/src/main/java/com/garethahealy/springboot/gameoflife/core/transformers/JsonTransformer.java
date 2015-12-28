@@ -37,9 +37,9 @@ public class JsonTransformer implements Transformer {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            json = mapper.writeValueAsString(new Cells(gameBoard.getCells(), gameBoard.getSize()));
+            json = mapper.writeValueAsString(gameBoard.getCells());
         } catch (JsonProcessingException ex) {
-            LOG.error(ExceptionUtils.getStackTrace(ex));
+            LOG.error("Failed to parse JSON: {}", ExceptionUtils.getStackTrace(ex));
         }
 
         return json;

@@ -23,24 +23,18 @@ import java.util.List;
 
 public class Cells {
 
-    private Integer size;
+    private Integer width;
+    private Integer height;
     private List<Cell> cells;
 
     public Cells() {
 
     }
 
-    public Cells(List<Cell> cells, Integer size) {
+    public Cells(List<Cell> cells, Integer width, Integer height) {
         this.cells = cells;
-        this.size = size;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
+        this.width = width;
+        this.height = height;
     }
 
     public List<Cell> getCells() {
@@ -49,5 +43,21 @@ public class Cells {
 
     public void setCells(List<Cell> cells) {
         this.cells = cells;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }

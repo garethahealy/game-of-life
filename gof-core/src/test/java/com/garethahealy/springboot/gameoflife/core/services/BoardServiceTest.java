@@ -26,7 +26,7 @@ public class BoardServiceTest {
 
     @Test
     public void tick() {
-        DefaultBoardService service = new DefaultBoardService(10);
+        DefaultBoardService service = new DefaultBoardService(10, 10);
         service.start();
 
         Assert.assertNotNull(service.nextGeneration());

@@ -26,33 +26,61 @@ import java.util.List;
 import com.garethahealy.springboot.gameoflife.core.seeds.Seed;
 import com.garethahealy.springboot.gameoflife.core.seeds.SeedFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GameBoard {
 
-    private Integer size;
+    private static final Logger LOG = LoggerFactory.getLogger(GameBoard.class);
+
+    private Integer width;
+    private Integer height;
     private List<Cell> cells;
 
-    public GameBoard(Integer size) {
-        this.size = size;
+    public GameBoard(Integer width, Integer height) {
+        this.width = width;
+        this.height = height;
     }
 
-    public Integer getSize() {
-        return size;
+    public Integer getWidth() {
+        return width;
     }
 
-    public List<Cell> getCells() {
+    public Integer getHeight() {
+        return height;
+    }
+
+    public List<Cell> getCellsCollection() {
         return Collections.unmodifiableList(cells);
     }
 
-    public void init() {
-        this.cells = new ArrayList<Cell>();
+    public Cells getCells() {
+        return new Cells(getCellsCollection(), getWidth(), getHeight());
+    }
 
-        for (Integer y = 0; y < this.size; y++) {
-            for (Integer x = 0; x < this.size; x++) {
-                cells.add(new Cell(x, y, this));
+    public void init() {
+        Seed seed = SeedFactory.get("csv");
+        Integer[] seedSize = seed.load(this);
+
+        LOG.trace("BoardWidth {} SeedWidth {}", getWidth(), seedSize[0]);
+        if (getWidth() != seedSize[0]) {
+            LOG.warn("BoardWidth ({}) != SeedWidth ({}). Updating BoardWidth to be same as SeedWidth", getWidth(), seedSize[0]);
+            this.width = seedSize[0];
+        }
+
+        LOG.trace("BoardHeight {} SeedHeight {}", getHeight(), seedSize[1]);
+        if (getHeight() != seedSize[1]) {
+            LOG.warn("BoardHeight ({}) != SeedHeight ({}). Updating BoardHeight to be same as SeedHeight", getHeight(), seedSize[1]);
+            this.height = seedSize[1];
+        }
+
+        this.cells = new ArrayList<Cell>();
+        for (Integer y = 0; y < this.height; y++) {
+            for (Integer x = 0; x < this.width; x++) {
+                cells.add(new Cell(x, y));
             }
         }
 
-        Seed seed = SeedFactory.get("");
         seed.process(this);
     }
 

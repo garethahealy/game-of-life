@@ -23,7 +23,7 @@ import com.garethahealy.springboot.gameoflife.core.entities.GameBoard;
 
 public interface Seed {
 
-    //Integer load();
+    Integer[] load(GameBoard board);
 
     void process(GameBoard board);
 }

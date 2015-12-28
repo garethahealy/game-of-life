@@ -26,65 +26,69 @@ import com.garethahealy.springboot.gameoflife.core.entities.GameBoard;
 import com.garethahealy.springboot.gameoflife.core.enums.Rules;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.NumberUtils;
 
 public class CsvLoaderSeed implements Seed {
 
     private static final Logger LOG = LoggerFactory.getLogger(CsvLoaderSeed.class);
 
-    public void process(GameBoard board) {
+    private String[] lines;
+
+    @Override
+    public Integer[] load(GameBoard board) {
         String csv = loadCsv();
-        String[] lines = StringUtils.split(csv, IOUtils.LINE_SEPARATOR);
+        lines = StringUtils.split(csv, IOUtils.LINE_SEPARATOR);
 
-        if (board.getSize() != lines.length) {
-            LOG.warn("Board size ({}) != csv lines ({})", board.getSize(), lines.length);
-        }
+        Integer height = lines.length;
+        Integer width = StringUtils.split(lines[0], ',').length;
+        return new Integer[] {width, height};
+    }
 
-        for (int y = 0; y < board.getSize(); y++) {
+    @Override
+    public void process(GameBoard board) {
+        for (int y = 0; y < board.getHeight(); y++) {
             String[] columns = StringUtils.split(lines[y], ',');
 
-            for (int x = 0; x < board.getSize(); x++) {
-                Boolean isDead = columns[x].trim().equals("0");
-
+            for (int x = 0; x < board.getWidth(); x++) {
                 Cell cell = board.getCellAt(x, y);
                 if (cell == null) {
                     throw new IllegalArgumentException("Did not find a cell @ x" + x + " / y" + y);
                 }
-
-                if (isDead) {
+                
+                if (0 == NumberUtils.parseNumber(columns[x], Integer.class)) {
                     cell.kill(Rules.OVERCROWDING);
                 } else {
                     cell.resurrect(Rules.UNDER_POPULATION);
                 }
-
-                x++;
             }
-
-            y++;
         }
 
         //Commit
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             current.commitState();
         }
     }
 
     protected String loadCsv() {
         String csv = "";
+        String fileName = CsvLoaderSeed.class.getSimpleName() + ".seed";
 
         try {
-            String fileName = CsvLoaderSeed.class.getSimpleName() + ".seed";
             csv = IOUtils.toString(getClass().getResourceAsStream(fileName), "UTF-8");
         } catch (IOException ex) {
-            LOG.error(ExceptionUtils.getStackTrace(ex));
+            LOG.error("Failed to load CSV {}; {}", fileName, ExceptionUtils.getStackTrace(ex));
         }
 
         if (csv == null || csv.isEmpty()) {
             throw new IllegalArgumentException("CSV is empty");
         }
+
+        LOG.trace("CSV == {}{}", IOUtils.LINE_SEPARATOR, csv);
 
         return csv;
     }

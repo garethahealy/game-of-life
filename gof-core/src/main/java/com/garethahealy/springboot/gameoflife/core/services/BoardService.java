@@ -19,9 +19,11 @@
  */
 package com.garethahealy.springboot.gameoflife.core.services;
 
+import com.garethahealy.springboot.gameoflife.core.entities.Cells;
+
 public interface BoardService {
 
-    String nextGeneration();
+    Cells nextGeneration();
 
     void start();
 

@@ -54,7 +54,7 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
     public void start() {
         super.start();
 
-        Integer threadCount = board.getSize() / 4;
+        Integer threadCount = board.getWidth() / 4;
         executorService = Executors.newFixedThreadPool(threadCount);
     }
 
@@ -78,7 +78,7 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
         LOG.trace("Ticking multi threaded...");
 
         List<Future<Cell>> turnFutures = new ArrayList<Future<Cell>>();
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             turnFutures.add(executorService.submit(new CellTakeTurnCallable(current) {
                 protected Cell processTurn(Cell current) {
                     takeTurn(current);
@@ -89,7 +89,7 @@ public abstract class AbstractMultiThreadedBoardService extends AbstractBoardSer
         }
 
         List<Future<Cell>> stateFutures = new ArrayList<Future<Cell>>();
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             stateFutures.add(executorService.submit(new CellCommitStateCallable(current)));
         }
 

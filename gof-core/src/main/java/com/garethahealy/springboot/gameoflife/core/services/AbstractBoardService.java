@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import com.garethahealy.springboot.gameoflife.core.entities.Cell;
+import com.garethahealy.springboot.gameoflife.core.entities.Cells;
 import com.garethahealy.springboot.gameoflife.core.entities.GameBoard;
 import com.garethahealy.springboot.gameoflife.core.transformers.Transformer;
 
@@ -62,11 +63,11 @@ public abstract class AbstractBoardService implements BoardService {
 
         LOG.trace("Ticking...");
 
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             takeTurn(current);
         }
 
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             current.commitState();
         }
 
@@ -76,10 +77,10 @@ public abstract class AbstractBoardService implements BoardService {
         LOG.trace("Method took: {}ns / {}ms / {}s", duration, TimeUnit.NANOSECONDS.toMillis(duration), TimeUnit.NANOSECONDS.toSeconds(duration));
     }
 
-    public String nextGeneration() {
+    public Cells nextGeneration() {
         tick();
 
-        return transformer.transform(board);
+        return board.getCells();
     }
 
     public String print() {

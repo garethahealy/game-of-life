@@ -43,7 +43,7 @@ public class DroolsBoardService extends AbstractMultiThreadedBoardService {
     private KieSessionFactory kieSessionFactory;
 
     public DroolsBoardService() {
-        super(new GameBoard(50), new JsonTransformer());
+        super(new GameBoard(50, 50), new JsonTransformer());
     }
 
     @Override

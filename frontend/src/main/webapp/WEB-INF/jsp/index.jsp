@@ -42,20 +42,19 @@
 
                 var timer = $.timer(function () {
                     $.get("tick", function (response) {
-                        var cellsResponse = $.parseJSON(response);
-                        drawBoard(cellsResponse);
+                        drawBoard(response);
 
                         board.append("svg:rect")
-                                .data(convertToD3Model(cellsResponse));
+                            .data(convertToD3Model(response));
                     });
                 });
 
                 function drawBoard(cellsResponse) {
                     if (cellsResponse) {
                         var rows = [];
-                        for (var y = 0; y < cellsResponse.size; y++) {
+                        for (var y = 0; y < cellsResponse.height; y++) {
                             var row = [];
-                            for (var x = 0; x < cellsResponse.size; x++) {
+                            for (var x = 0; x < cellsResponse.width; x++) {
                                 var cell = $.grep(cellsResponse.cells, function (value, index) {
                                     return x === value.xCords && y === value.yCords;
                                 })[0];

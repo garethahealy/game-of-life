@@ -25,6 +25,12 @@ import com.garethahealy.springboot.gameoflife.core.enums.Rules;
 
 public class GosperGliderGunSeed implements Seed {
 
+    @Override
+    public Integer[] load(GameBoard board) {
+        return new Integer[] {board.getWidth(), board.getHeight()};
+    }
+
+    @Override
     public void process(GameBoard board) {
         board.getCellAt(1, 5).resurrect(Rules.UNDER_POPULATION);
         board.getCellAt(2, 5).resurrect(Rules.UNDER_POPULATION);
@@ -42,7 +48,7 @@ public class GosperGliderGunSeed implements Seed {
         board.getCellAt(9, 5).resurrect(Rules.UNDER_POPULATION);
 
         //Commit
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             current.commitState();
         }
     }

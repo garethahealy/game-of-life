@@ -32,17 +32,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("default")
 public class DefaultBoardService extends AbstractBoardService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultBoardService.class);
 
     public DefaultBoardService() {
-        this(48);
+        this(48, 48);
     }
 
-    public DefaultBoardService(Integer size) {
-        super(new GameBoard(size), new JsonTransformer());
+    public DefaultBoardService(Integer width, Integer height) {
+        super(new GameBoard(width, height), new JsonTransformer());
     }
 
     @Override
@@ -60,7 +59,7 @@ public class DefaultBoardService extends AbstractBoardService {
             }
         }
 
-        LOG.debug("aliveNeighbours: " + aliveNeighbours + " / " + current.toString());
+        LOG.debug("aliveNeighbours: {} / {}", aliveNeighbours, current.toString());
 
         if (current.isAlive()) {
             if (aliveNeighbours < 2) {
@@ -74,6 +73,8 @@ public class DefaultBoardService extends AbstractBoardService {
             if (aliveNeighbours.equals(3)) {
                 current.resurrect(Rules.REPRODUCTION);
             }
+        } else {
+            throw new IllegalArgumentException("Cell is not alive or dead: " + current.toString());
         }
     }
 }

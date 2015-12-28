@@ -32,10 +32,10 @@ public class HTMLTransformer implements Transformer {
     public String transform(GameBoard gameBoard) {
         List<String> rows = new ArrayList<String>();
 
-        for (Integer yCord = 0; yCord < gameBoard.getSize(); yCord++) {
+        for (Integer yCord = 0; yCord < gameBoard.getWidth(); yCord++) {
             List<String> row = new ArrayList<String>();
 
-            for (Integer xCord = 0; xCord < gameBoard.getSize(); xCord++) {
+            for (Integer xCord = 0; xCord < gameBoard.getWidth(); xCord++) {
                 Cell cell = gameBoard.getCellAt(xCord, yCord);
                 row.add(cell.isAlive() ? "<strong><span style='display:none'>x" + xCord + "/ y" + yCord + "</span>1</strong>" : "0");
             }

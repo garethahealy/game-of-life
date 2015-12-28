@@ -19,11 +19,13 @@
  */
 package com.garethahealy.springboot.gameoflife.frontend.controllers;
 
+import com.garethahealy.springboot.gameoflife.core.entities.Cells;
 import com.garethahealy.springboot.gameoflife.core.services.BoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,7 +36,8 @@ public class TickerController {
     private BoardService boardService;
 
     @RequestMapping("/tick")
-    public String tick() {
+    @ResponseBody
+    public Cells tick() {
         return boardService.nextGeneration();
     }
 }

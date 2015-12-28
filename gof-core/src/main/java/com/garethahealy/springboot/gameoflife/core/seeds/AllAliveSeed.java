@@ -25,13 +25,19 @@ import com.garethahealy.springboot.gameoflife.core.enums.Rules;
 
 public class AllAliveSeed implements Seed {
 
+    @Override
+    public Integer[] load(GameBoard board) {
+        return new Integer[] {board.getWidth(), board.getHeight()};
+    }
+
+    @Override
     public void process(GameBoard board) {
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             current.resurrect(Rules.UNDER_POPULATION);
         }
 
         //Commit
-        for (Cell current : board.getCells()) {
+        for (Cell current : board.getCellsCollection()) {
             current.commitState();
         }
     }

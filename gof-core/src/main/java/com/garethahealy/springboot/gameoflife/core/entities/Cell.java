@@ -47,15 +47,11 @@ public class Cell {
     private Integer yCords;
 
     @JsonIgnore
-    private GameBoard board;
-
-    @JsonIgnore
     private AdjacentCoordinates adjacentCoordinates;
 
-    public Cell(Integer xCords, Integer yCords, GameBoard board) {
+    public Cell(Integer xCords, Integer yCords) {
         this.xCords = xCords;
         this.yCords = yCords;
-        this.board = board;
 
         this.adjacentCoordinates = new AdjacentCoordinates(xCords, yCords);
     }

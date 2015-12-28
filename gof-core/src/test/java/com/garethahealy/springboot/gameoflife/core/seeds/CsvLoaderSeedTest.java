@@ -27,7 +27,7 @@ public class CsvLoaderSeedTest {
 
     @Test
     public void test() {
-        GameBoard board = new GameBoard(10);
+        GameBoard board = new GameBoard(10, 10);
         board.init();
     }
 }
