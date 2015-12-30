@@ -5,14 +5,15 @@
 - http://trillions.maya.com/game_of_life/
 
 # Tech
-- http://projects.spring.io/spring-boot/
-- https://github.com/jchavannes/jquery-timer
-- http://jquery.com
-
-- https://www.npmjs.com
+## Web
+- https://projects.spring.io/spring-boot
 - https://www.patternfly.org
-- http://d3js.org
-- http://requirejs.org
+- https://github.com/jchavannes/jquery-timer
+- https://jquery.com
+
+## Package Management
+- https://www.npmjs.com
+- http://www.bower.io
 
 # Useful links
 - https://spring.io/guides/gs/spring-boot/
@@ -21,21 +22,22 @@
 # Build
 - mvn clean install
 
-## Build for Spring Boot
+## Spring Boot
+### Build for Spring Boot
 - cd frontend && mvn package -Pspringboot
+
+### Run with Spring Boot
+- cd frontend && mvn spring-boot:run
 
 ## Build for EAP
 - cd frontend && mvn package -Peap
 
-## Run with Spring Boot
-- cd frontend && mvn spring-boot:run
-
 # URLS
+- http://localhost:8080/
+- http://localhost:8080/reset
 - http://localhost:8080/tick
 
 # TODO
-- add require.js
-- draw a "board" via d3
-- draw different colours for alive/dead cells via d3
-- change data returned to be json, so d3 can accept (x/y and state)
-- add unit tests
+- http://d3js.org
+-- draw a "board" via d3 and different colours for alive/dead cells
+- add unit tests via arquillian for BRMS
