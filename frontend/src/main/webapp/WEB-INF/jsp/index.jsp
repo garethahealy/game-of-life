@@ -19,15 +19,23 @@
   --%>
 <!DOCTYPE html>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<html>
+<!--[if IE 9]><html lang="en-us" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en-us">
+<!--<![endif]-->
     <head lang="en">
-        <meta charset="utf-8">
+        <spring:url value="/resources/bower_components/patternfly/dist/img/favicon.ico" var="favicon" />
         <spring:url value="/resources/bower_components/patternfly/dist/css/patternfly.min.css" var="patternflyCss" />
         <spring:url value="/resources/bower_components/patternfly/dist/css/patternfly-additions.min.css" var="patternflyAdditionsCss" />
         <spring:url value="/resources/bower_components/patternfly/components/jquery/dist/jquery.js" var="jqueryJs" />
         <spring:url value="/resources/bower_components/patternfly/components/bootstrap/dist/js/bootstrap.js" var="bootstrapJs" />
         <spring:url value="/resources/bower_components/patternfly/components/c3/c3.min.js" var="c3Js" />
         <spring:url value="/resources/bower_components/patternfly/components/d3/d3.min.js" var="d3Js" />
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="${favicon}">
 
         <!-- PatternFly Styles -->
         <!-- Note: No other CSS files are needed regardless of what other JS packages located in patternfly/components that you decide to pull in -->
@@ -46,20 +54,46 @@
 
         <!-- Timer -->
         <script src="https://raw.githubusercontent.com/jchavannes/jquery-timer/master/jquery.timer.js" charset="utf-8"></script>
+
+        <title>Game Of Life</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-pf" role="navigation">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-primary">
+              <li class="active">
+                <a href="/reset" class="active">Home</a>
+              </li>
+              <li>
+                <a href="/reset">Reset</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li>Game Of Life</li>
+              </ol>
+              <h1>Game Of Life</h1>
+              <div id="gof"/>
+            </div><!-- /col -->
+          </div><!-- /row -->
+        </div><!-- /container -->
+
         <script charset="utf-8">
             $(document).ready(function () {
-                var board = d3.select("#board")
-                        .append("svg:svg")
-                        .attr("width", 100)
-                        .attr("height", 100);
-
-                board.append("svg:rect")
-                        .attr("x", 0)
-                        .attr("y", 0)
-                        .attr("width", "10")
-                        .attr("height", "10")
-                        .style("fill", "");
-
                 var timer = $.timer(function () {
                     $.get("tick", function (response) {
                         drawBoard(response);
@@ -81,7 +115,7 @@
 
                                 var representation = '0';
                                 if (cell.state === 'ALIVE') {
-                                    representation = '<strong><span style="display:none">x' + cell.xCords + '/ y' + cell.yCords + '</span>1</strong>';
+                                    representation = '<strong style="color:red"><span style="display:none">x' + cell.xCords + '/ y' + cell.yCords + '</span>1</strong>';
                                 }
 
                                 row.push(representation);
@@ -94,36 +128,11 @@
                     }
                 }
 
-                function convertToD3Model(cellsResponse) {
-                    var data = [];
-                    for (var i = 0; i < cellsResponse.cells.length; i++) {
-                        var current = cellsResponse.cells[i];
-
-                        var d3Model = {
-                            "x_axis": current.xCords,
-                            "y_axis": current.yCords,
-                            "width": 10,
-                            "height": 10,
-                            "color": "#424242"
-                        };
-
-                        data.push(d3Model);
-                    }
-
-                    return d3Model;
-                }
-
                 timer.set({
                     time: 1000,
                     autostart: true
                 });
             });
         </script>
-        <title>Game Of Life</title>
-    </head>
-    <body>
-        <h3>${message}</h3>
-        <div id="gof">${gof}</div>
-        <div id="board"></div>
     </body>
 </html>

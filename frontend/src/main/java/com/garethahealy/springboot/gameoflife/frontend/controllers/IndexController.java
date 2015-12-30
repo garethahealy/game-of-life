@@ -36,18 +36,12 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(ModelMap model) {
-        model.addAttribute("message", "Game of Life");
-        model.addAttribute("gof", boardService.print());
-
         return new ModelAndView("index");
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET)
     public ModelAndView reset(ModelMap model) {
         boardService.reset();
-
-        model.addAttribute("message", "Game of Life");
-        model.addAttribute("gof", boardService.print());
 
         return new ModelAndView("index");
     }
