@@ -22,9 +22,29 @@
 <html>
     <head lang="en">
         <meta charset="utf-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js" charset="utf-8"></script>
-        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <spring:url value="/resources/bower_components/patternfly/dist/css/patternfly.min.css" var="patternflyCss" />
+        <spring:url value="/resources/bower_components/patternfly/dist/css/patternfly-additions.min.css" var="patternflyAdditionsCss" />
+        <spring:url value="/resources/bower_components/patternfly/components/jquery/dist/jquery.js" var="jqueryJs" />
+        <spring:url value="/resources/bower_components/patternfly/components/bootstrap/dist/js/bootstrap.js" var="bootstrapJs" />
+        <spring:url value="/resources/bower_components/patternfly/components/c3/c3.min.js" var="c3Js" />
+        <spring:url value="/resources/bower_components/patternfly/components/d3/d3.min.js" var="d3Js" />
+
+        <!-- PatternFly Styles -->
+        <!-- Note: No other CSS files are needed regardless of what other JS packages located in patternfly/components that you decide to pull in -->
+        <link rel="stylesheet" href="${patternflyCss}" charset="utf-8" />
+        <link rel="stylesheet" href="${patternflyAdditionsCss}" charset="utf-8" />
+
+        <!-- jQuery -->
+        <script src="${jqueryJs}" charset="utf-8"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="${bootstrapJs}" charset="utf-8"></script>
+
+        <!-- C3, D3 - Charting Libraries -->
+        <script src="${c3Js}" charset="utf-8"></script>
+        <script src="${d3Js}" charset="utf-8"></script>
+
+        <!-- Timer -->
         <script src="https://raw.githubusercontent.com/jchavannes/jquery-timer/master/jquery.timer.js" charset="utf-8"></script>
         <script charset="utf-8">
             $(document).ready(function () {
