@@ -4,36 +4,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.garethahealy.springboot</groupId>
+        <groupId>com.garethahealy.game-of-life</groupId>
         <artifactId>game-of-life-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
     <artifactId>gof-core</artifactId>
     <packaging>jar</packaging>
     <name>GarethHealy :: Game of Life :: Core</name>
-
-    <scm>
-        <connection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</connection>
-        <developerConnection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</developerConnection>
-        <url>https://github.com/garethahealy/game-of-life/tree/master</url>
-    </scm>
-
-    <build>
-        <plugins>
-            <!--
-                Skip the toplevel code quality checks false positive
-                Dead store to xCord in GameBoard.print() [GameBoard] At GameBoard.java:[line 84]
-            -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>

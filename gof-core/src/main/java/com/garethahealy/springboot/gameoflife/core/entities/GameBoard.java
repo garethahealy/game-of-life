@@ -66,13 +66,13 @@ public class GameBoard {
         Integer seedHeight = seedSize[1];
 
         LOG.trace("BoardWidth {} SeedWidth {}", getWidth(), seedWidth);
-        if (getWidth() != seedWidth) {
+        if (!getWidth().equals(seedWidth)) {
             LOG.warn("BoardWidth ({}) != SeedWidth ({}). Updating BoardWidth to be same as SeedWidth", getWidth(), seedWidth);
             this.width = seedWidth;
         }
 
         LOG.trace("BoardHeight {} SeedHeight {}", getHeight(), seedHeight);
-        if (getHeight() != seedHeight) {
+        if (!getHeight().equals(seedHeight)) {
             LOG.warn("BoardHeight ({}) != SeedHeight ({}). Updating BoardHeight to be same as SeedHeight", getHeight(), seedHeight);
             this.height = seedHeight;
         }

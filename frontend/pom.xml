@@ -4,28 +4,18 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.garethahealy.springboot</groupId>
+        <groupId>com.garethahealy.game-of-life</groupId>
         <artifactId>game-of-life-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
     <artifactId>frontend</artifactId>
     <packaging>war</packaging>
     <name>GarethHealy :: Game of Life :: Frontend</name>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <scm>
-        <connection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</connection>
-        <developerConnection>scm:git:https://github.com/garethahealy/game-of-life/tree/master</developerConnection>
-        <url>https://github.com/garethahealy/game-of-life/tree/master</url>
-    </scm>
-
     <dependencies>
         <dependency>
-            <groupId>com.garethahealy.springboot</groupId>
+            <groupId>com.garethahealy.game-of-life</groupId>
             <artifactId>gof-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -93,7 +83,7 @@
             </build>
             <dependencies>
                 <dependency>
-                    <groupId>com.garethahealy.springboot</groupId>
+                    <groupId>com.garethahealy.game-of-life</groupId>
                     <artifactId>gof-core-brms</artifactId>
                     <version>${project.version}</version>
                 </dependency>

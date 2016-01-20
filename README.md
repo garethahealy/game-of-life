@@ -39,5 +39,5 @@
 
 # TODO
 - http://d3js.org
--- draw a "board" via d3 and different colours for alive/dead cells
+ - draw a "board" via d3 and different colours for alive/dead cells
 - add unit tests via arquillian for BRMS

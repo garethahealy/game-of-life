@@ -41,7 +41,7 @@ public class CsvLoaderSeed implements Seed {
 
     @Override
     public Integer[] load(GameBoard board) {
-        String csv = loadCsv();
+        String csv = loadCsv(getClass());
         lines = StringUtils.split(csv, IOUtils.LINE_SEPARATOR);
 
         Integer height = lines.length;
@@ -74,12 +74,12 @@ public class CsvLoaderSeed implements Seed {
         }
     }
 
-    protected String loadCsv() {
+    protected String loadCsv(Class resourceLoader) {
         String csv = "";
-        String fileName = CsvLoaderSeed.class.getSimpleName() + ".seed";
+        String fileName = resourceLoader.getSimpleName() + ".seed";
 
         try {
-            csv = IOUtils.toString(getClass().getResourceAsStream(fileName), "UTF-8");
+            csv = IOUtils.toString(resourceLoader.getResourceAsStream(fileName), "UTF-8");
         } catch (IOException ex) {
             LOG.error("Failed to load CSV {}; {}", fileName, ExceptionUtils.getStackTrace(ex));
         }
