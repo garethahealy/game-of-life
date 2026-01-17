@@ -1,9 +1,40 @@
 [![Build, Analyze and Test](https://github.com/garethahealy/game-of-life/actions/workflows/build.yaml/badge.svg)](https://github.com/garethahealy/game-of-life/actions/workflows/build.yaml)
 
 # game-of-life
-- http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 
-## TODO
-- http://d3js.org
- - draw a "board" via d3 and different colours for alive/dead cells
-- add unit tests via arquillian for BRMS
+Conway's Game of Life implemented as a Quarkus REST API with a React + Vite UI.
+The backend generates each generation of the board, while the UI polls the API
+to render the grid and apply different seed patterns.
+
+More on the rules: http://en.wikipedia.org/wiki/Conway's_Game_of_Life
+
+## Build
+
+Backend (Java 21 / Quarkus):
+
+```bash
+./mvnw clean package
+```
+
+Frontend (Vite):
+
+```bash
+cd app
+npm install
+npm run build
+```
+
+## Run (development)
+
+Backend API on `http://localhost:9090`:
+
+```bash
+./mvnw quarkus:dev
+```
+
+Frontend UI on `http://localhost:5173` (points to the backend):
+
+```bash
+cd app
+VITE_BACKEND_BASE_URL=http://localhost:9090 npm run dev
+```

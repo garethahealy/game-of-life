@@ -3,6 +3,7 @@ package com.garethahealy.gameoflife.seeds;
 import com.garethahealy.gameoflife.model.GameBoard;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -15,9 +16,14 @@ class CsvLoaderSeedTest {
     @Inject
     GameBoard board;
 
+    @BeforeEach
+    void resetBoard() {
+        board.reset();
+    }
+
     @Test
     void process() throws IOException {
-        CsvLoaderSeed seed = new CsvLoaderSeed("src/main/resources/CsvLoaderSeed.csv");
+        CsvLoaderSeed seed = new CsvLoaderSeed("CsvLoaderSeed.csv");
         seed.process(board);
 
         assertTrue(board.getCellAt(0, 0).isDead());

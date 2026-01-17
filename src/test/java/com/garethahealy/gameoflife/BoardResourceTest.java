@@ -11,7 +11,7 @@ class BoardResourceTest {
     @Test
     void canSeed() {
         given()
-                .when().post("/board/seed/{seed}?option=src/main/resources/CsvLoaderSeed.csv", "CsvLoaderSeed")
+                .when().post("/board/seed/{seed}?option=CsvLoaderSeed.csv", "CsvLoaderSeed")
                 .then()
                 .statusCode(200);
     }

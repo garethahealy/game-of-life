@@ -31,7 +31,9 @@ public class BoardResource {
     private Seed getSeed(String seed, String option) {
         return switch (seed) {
             case "AllAliveSeed" -> new AllAliveSeed();
+            case "GliderSeed" -> new GliderSeed();
             case "GosperGliderGunSeed" -> new GosperGliderGunSeed();
+            case "HeavyweightSpaceshipSeed" -> new HeavyweightSpaceshipSeed();
             case "SquareSeed" -> new SquareSeed();
             case "ThreeLineSeed" -> new ThreeLineSeed();
             default -> new CsvLoaderSeed(option);

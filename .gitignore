@@ -38,5 +38,4 @@ nb-configuration.xml
 # Local environment
 .env
 
-.quinoa/
-src/main/webui/node_modules/
+app/node_modules/
