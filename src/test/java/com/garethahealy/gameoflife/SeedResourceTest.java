@@ -6,20 +6,20 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-class BoardResourceTest {
+class SeedResourceTest {
 
     @Test
-    void canNextGeneration() {
+    void canListSeeds() {
         given()
-                .when().post("/board/next-generation")
+                .when().get("/seeds")
                 .then()
                 .statusCode(200);
     }
 
     @Test
-    void canReset() {
+    void canSeedBoard() {
         given()
-                .when().post("/board/reset")
+                .when().post("/seeds/{seed}", "GliderSeed")
                 .then()
                 .statusCode(200);
     }

@@ -9,6 +9,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class CellTest {
 
     @Test
+    void defaultsToDeadState() {
+        Cell cell = new Cell(3, 4);
+
+        assertTrue(cell.isDead());
+        assertFalse(cell.isAlive());
+    }
+
+    @Test
+    void resurrectAndCommit() {
+        Cell cell = new Cell(0, 0, Cell.State.DEAD);
+
+        cell.resurrect();
+        cell.commitState();
+
+        assertTrue(cell.isAlive());
+    }
+
+    @Test
+    void killAndCommit() {
+        Cell cell = new Cell(0, 0, Cell.State.ALIVE);
+
+        cell.kill();
+        cell.commitState();
+
+        assertTrue(cell.isDead());
+    }
+
+    @Test
     void getAdjacentCoordinates() {
         int xCords = 1;
         int yCords = 1;

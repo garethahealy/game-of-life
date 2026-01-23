@@ -26,12 +26,28 @@ class GameBoardTest {
     }
 
     @Test
+    void getCellAtOutOfBoundsReturnsNull() {
+        assertNull(board.getCellAt(-1, 0));
+        assertNull(board.getCellAt(0, -1));
+        assertNull(board.getCellAt(board.getWidth(), 0));
+        assertNull(board.getCellAt(0, board.getHeight()));
+    }
+
+    @Test
+    void getCellsGridMatchesDimensions() {
+        Cell[][] grid = board.getCells();
+
+        assertEquals(board.getHeight(), grid.length);
+        assertEquals(board.getWidth(), grid[0].length);
+    }
+
+
     void nextGeneration() {
-        setAliveCells(new int[][]{{1, 0}, {1, 1}, {1, 2}});
+        resurrectAllCells();
 
         board.nextGeneration();
 
-        assertEquals(3, aliveCount());
+        assertEquals(3, getAliveCount());
         assertTrue(board.getCellAt(0, 1).isAlive());
         assertTrue(board.getCellAt(1, 1).isAlive());
         assertTrue(board.getCellAt(2, 1).isAlive());
@@ -39,26 +55,23 @@ class GameBoardTest {
 
     @Test
     void reset() {
-        setAliveCells(new int[][]{{2, 2}});
+        resurrectAllCells();
 
         board.reset();
 
-        assertEquals(0, aliveCount());
+        assertEquals(0, getAliveCount());
     }
 
-    private void setAliveCells(int[][] coords) {
-        for (int[] coord : coords) {
-            board.getCellAt(coord[0], coord[1]).resurrect();
-        }
-
+    private void resurrectAllCells() {
         for (Cell[] row : board.getCells()) {
             for (Cell current : row) {
+                current.resurrect();
                 current.commitState();
             }
         }
     }
 
-    private long aliveCount() {
+    private long getAliveCount() {
         long count = 0;
         for (Cell[] row : board.getCells()) {
             for (Cell cell : row) {
@@ -67,6 +80,7 @@ class GameBoardTest {
                 }
             }
         }
+
         return count;
     }
 }
