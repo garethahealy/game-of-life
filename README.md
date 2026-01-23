@@ -13,7 +13,7 @@ More on the rules: http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 Backend (Java 21 / Quarkus):
 
 ```bash
-./mvnw clean package
+./mvnw clean install -Pnative
 ```
 
 Frontend (Vite):
