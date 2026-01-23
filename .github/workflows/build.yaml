@@ -27,6 +27,12 @@ jobs:
           java-version: 21
           cache: "maven"
 
+      - uses: actions/setup-node@1f3c6957a35eafad3159815f5d1d9a4750f2c21b # v4
+        with:
+          node-version: "latest"
+          cache: "npm"
+          cache-dependency-path: app/package-lock.json
+
       - name: Dependency Review
         if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
@@ -42,6 +48,12 @@ jobs:
 
       - name: Test
         run: ./mvnw test --batch-mode
+
+      - name: Build frontend
+        run: |
+          cd app
+          npm ci
+          npm run build
 
   analyze:
     needs: [ build ]
