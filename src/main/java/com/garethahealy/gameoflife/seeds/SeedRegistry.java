@@ -121,11 +121,8 @@ public class SeedRegistry {
         String path = SEED_PACKAGE.replace('.', '/') + "/";
 
         try (var jar = connection.getJarFile()) {
-            jar.stream()
-                    .filter(entry -> !entry.isDirectory())
-                    .map(entry -> entry.getName())
-                    .filter(name -> name.startsWith(path))
-                    .filter(name -> name.endsWith(".class"))
+            jar.stream().filter(entry -> !entry.isDirectory()).map(entry -> entry.getName())
+                    .filter(name -> name.startsWith(path)).filter(name -> name.endsWith(".class"))
                     .map(name -> name.substring(path.length(), name.length() - ".class".length()))
                     .forEach(className -> addSeedIfSupported(seeds, className));
         }

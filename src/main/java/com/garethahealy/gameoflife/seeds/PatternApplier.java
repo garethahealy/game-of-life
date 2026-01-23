@@ -14,13 +14,9 @@ public class PatternApplier {
         Objects.requireNonNull(pattern, "pattern");
 
         String[] rows = pattern.rows();
-        int offsetX = pattern.hasOffset()
-                ? pattern.offsetX()
-                : (board.getWidth() - pattern.width()) / 2;
+        int offsetX = pattern.hasOffset() ? pattern.offsetX() : (board.getWidth() - pattern.width()) / 2;
 
-        int offsetY = pattern.hasOffset()
-                ? pattern.offsetY()
-                : (board.getHeight() - pattern.height()) / 2;
+        int offsetY = pattern.hasOffset() ? pattern.offsetY() : (board.getHeight() - pattern.height()) / 2;
 
         for (int y = 0; y < rows.length; y++) {
             String row = rows[y];
@@ -29,7 +25,8 @@ public class PatternApplier {
                 if (cellValue == 'O' || cellValue == 'o') {
                     Cell cell = board.getCellAt(x + offsetX, y + offsetY);
                     if (cell == null) {
-                        throw new IllegalArgumentException("Pattern out of bounds at x=" + (x + offsetX) + ", y=" + (y + offsetY));
+                        throw new IllegalArgumentException(
+                                "Pattern out of bounds at x=" + (x + offsetX) + ", y=" + (y + offsetY));
                     }
 
                     cell.resurrect();

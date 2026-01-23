@@ -10,17 +10,11 @@ class BoardResourceTest {
 
     @Test
     void canNextGeneration() {
-        given()
-                .when().post("/board/next-generation")
-                .then()
-                .statusCode(200);
+        given().when().post("/board/next-generation").then().statusCode(200);
     }
 
     @Test
     void canReset() {
-        given()
-                .when().post("/board/reset")
-                .then()
-                .statusCode(200);
+        given().when().post("/board/reset").then().statusCode(200);
     }
 }

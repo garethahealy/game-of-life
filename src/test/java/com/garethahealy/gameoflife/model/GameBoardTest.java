@@ -45,7 +45,7 @@ class GameBoardTest {
     void nextGeneration() {
         Cell cell1 = board.getCellAt(0, 1);
         Cell cell2 = board.getCellAt(1, 1);
-        Cell cell3 =  board.getCellAt(2, 1);
+        Cell cell3 = board.getCellAt(2, 1);
 
         cell1.resurrect();
         cell1.commitState();

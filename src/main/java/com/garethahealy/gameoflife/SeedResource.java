@@ -34,7 +34,8 @@ public class SeedResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{seed}")
-    public com.garethahealy.gameoflife.model.Cell[][] seed(@PathParam(value = "seed") String seed, @QueryParam(value = "option") String option) {
+    public com.garethahealy.gameoflife.model.Cell[][] seed(@PathParam(value = "seed") String seed,
+                                                           @QueryParam(value = "option") String option) {
         Seed answer = seedRegistry.getSeed(seed, option);
         SeedPattern pattern;
         try {

@@ -9,19 +9,21 @@ import java.util.List;
 public class Cell {
 
     public enum State {
-        ALIVE,
-        DEAD
+        ALIVE, DEAD
     }
 
     @JsonProperty("xCords")
     private final int xCords;
+
     @JsonProperty("yCords")
     private final int yCords;
+
     @JsonIgnore
     private final List<int[]> adjacentCoordinates;
 
     @JsonProperty("state")
     private State state;
+
     @JsonIgnore
     private State nextState;
 
@@ -75,18 +77,18 @@ public class Cell {
     public void process(int aliveNeighbours) {
         if (isAlive()) {
             if (aliveNeighbours < 2) {
-                //Rule == UNDER_POPULATION
+                // Rule == UNDER_POPULATION
                 kill();
             } else if (aliveNeighbours == 2 || aliveNeighbours == 3) {
-                //Rule == LIVE_ON
+                // Rule == LIVE_ON
                 resurrect();
             } else if (aliveNeighbours > 3) {
-                //Rule == OVERCROWDING
+                // Rule == OVERCROWDING
                 kill();
             }
         } else if (isDead()) {
             if (aliveNeighbours == 3) {
-                //Rule == REPRODUCTION
+                // Rule == REPRODUCTION
                 resurrect();
             }
         } else {
@@ -118,12 +120,8 @@ public class Cell {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("state", state)
-                .append("nextState", nextState)
-                .append("xCords", getXCords())
-                .append("yCords", getYCords())
-                .append("adjacentCoordinates", adjacentCoordinates)
-                .toString();
+        return new ToStringBuilder(this).append("state", state).append("nextState", nextState)
+                .append("xCords", getXCords()).append("yCords", getYCords())
+                .append("adjacentCoordinates", adjacentCoordinates).toString();
     }
 }

@@ -3,7 +3,6 @@ package com.garethahealy.gameoflife.model;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 
-
 @ApplicationScoped
 public class GameBoard {
 
