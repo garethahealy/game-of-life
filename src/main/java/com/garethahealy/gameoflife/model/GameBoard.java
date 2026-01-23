@@ -3,6 +3,8 @@ package com.garethahealy.gameoflife.model;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @ApplicationScoped
 public class GameBoard {
 
@@ -85,6 +87,24 @@ public class GameBoard {
         for (Cell[] row : cellGrid) {
             for (Cell current : row) {
                 current.kill();
+                current.commitState();
+            }
+        }
+    }
+
+    public void randomize(double aliveProbability) {
+        if (aliveProbability < 0 || aliveProbability > 1) {
+            throw new IllegalArgumentException("Alive probability must be between 0 and 1");
+        }
+
+        for (Cell[] row : cellGrid) {
+            for (Cell current : row) {
+                if (ThreadLocalRandom.current().nextDouble() < aliveProbability) {
+                    current.resurrect();
+                } else {
+                    current.kill();
+                }
+
                 current.commitState();
             }
         }

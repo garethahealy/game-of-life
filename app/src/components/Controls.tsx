@@ -7,8 +7,8 @@ interface ControlsProps {
   selectedSeed: string
   seeds: SeedOption[]
   onToggleRun: () => void
-  onStep: () => void
-  onReset: () => void
+  onClear: () => void
+  onRandomize: () => void
   onSeedChange: (seedId: string) => void
   onApplySeed: () => void
 }
@@ -19,8 +19,8 @@ const Controls = ({
   selectedSeed,
   seeds,
   onToggleRun,
-  onStep,
-  onReset,
+  onClear,
+  onRandomize,
   onSeedChange,
   onApplySeed,
 }: ControlsProps) => (
@@ -28,11 +28,11 @@ const Controls = ({
     <button type="button" onClick={onToggleRun}>
       {isRunning ? 'Pause' : 'Start'}
     </button>
-    <button type="button" onClick={onStep} disabled={isLoading}>
-      Next
+    <button type="button" onClick={onClear} disabled={isLoading}>
+      Clear
     </button>
-    <button type="button" onClick={onReset} disabled={isLoading}>
-      Reset
+    <button type="button" onClick={onRandomize} disabled={isLoading}>
+      Randomize
     </button>
     <select value={selectedSeed} onChange={(event) => onSeedChange(event.target.value)} disabled={isLoading}>
       {seeds.map((seed) => (

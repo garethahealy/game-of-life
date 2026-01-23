@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchNextGeneration, fetchSeeds, resetBoard, seedBoard, toggleCell } from './api'
+import { clearBoard, fetchNextGeneration, fetchSeeds, randomizeBoard, seedBoard, toggleCell } from './api'
 import { POLL_INTERVAL_MS } from './config'
 import Board from './components/Board'
 import Controls from './components/Controls'
@@ -17,7 +17,7 @@ function App() {
     setIsLoading(true)
     setError(null)
     try {
-      const data = await resetBoard()
+      const data = await clearBoard()
       setCells(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load board')
@@ -26,14 +26,27 @@ function App() {
     }
   }
 
-  const handleStep = async () => {
+  const handleClear = async () => {
     setIsLoading(true)
     setError(null)
     try {
-      const data = await fetchNextGeneration()
+      const data = await clearBoard()
       setCells(data)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to advance')
+      setError(err instanceof Error ? err.message : 'Failed to clear board')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleRandomize = async () => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const data = await randomizeBoard()
+      setCells(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to randomize board')
     } finally {
       setIsLoading(false)
     }
@@ -128,8 +141,8 @@ function App() {
           selectedSeed={selectedSeed}
           seeds={seeds}
           onToggleRun={() => setIsRunning((prev) => !prev)}
-          onStep={handleStep}
-          onReset={loadInitial}
+          onClear={handleClear}
+          onRandomize={handleRandomize}
           onSeedChange={setSelectedSeed}
           onApplySeed={() => handleSeed(selectedSeed)}
         />

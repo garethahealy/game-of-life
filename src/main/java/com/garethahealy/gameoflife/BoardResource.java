@@ -3,11 +3,7 @@ package com.garethahealy.gameoflife;
 import com.garethahealy.gameoflife.model.Cell;
 import com.garethahealy.gameoflife.model.GameBoard;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/board")
@@ -34,6 +30,16 @@ public class BoardResource {
     @Path("/reset")
     public com.garethahealy.gameoflife.model.Cell[][] reset() {
         gameBoard.reset();
+
+        return gameBoard.getCells();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/randomize")
+    public com.garethahealy.gameoflife.model.Cell[][] randomize(@QueryParam("aliveProbability") Double aliveProbability) {
+        double probability = aliveProbability == null ? 0.3 : aliveProbability;
+        gameBoard.randomize(probability);
 
         return gameBoard.getCells();
     }

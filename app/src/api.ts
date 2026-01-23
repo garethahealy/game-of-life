@@ -11,11 +11,11 @@ const fetchCells = async (endpoint: string, options?: RequestInit): Promise<Cell
 }
 
 export const fetchNextGeneration = () => fetchCells(`${API_BASE_URL}/board/next-generation`, { method: 'POST' })
-export const resetBoard = () => fetchCells(`${API_BASE_URL}/board/reset`, { method: 'POST' })
-export const toggleCell = (xCords: number, yCords: number) =>
-  fetchCells(`${API_BASE_URL}/board/cell/${xCords}/${yCords}/toggle`, { method: 'POST' })
-export const seedBoard = (seed: string) =>
-  fetchCells(`${API_BASE_URL}/seeds/${encodeURIComponent(seed)}`, { method: 'POST' })
+export const clearBoard = () => fetchCells(`${API_BASE_URL}/board/reset`, { method: 'POST' })
+export const randomizeBoard = (aliveProbability = 0.3) => fetchCells(`${API_BASE_URL}/board/randomize?aliveProbability=${aliveProbability}`, { method: 'POST' })
+export const toggleCell = (xCords: number, yCords: number) => fetchCells(`${API_BASE_URL}/board/cell/${xCords}/${yCords}/toggle`, { method: 'POST' })
+export const seedBoard = (seed: string) => fetchCells(`${API_BASE_URL}/seeds/${encodeURIComponent(seed)}`, { method: 'POST' })
+
 export const fetchSeeds = async (): Promise<string[]> => {
   const response = await fetch(`${API_BASE_URL}/seeds`)
   if (!response.ok) {
