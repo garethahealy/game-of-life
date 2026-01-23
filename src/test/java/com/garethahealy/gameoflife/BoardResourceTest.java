@@ -19,7 +19,7 @@ class BoardResourceTest {
     @Test
     void canNextGeneration() {
         given()
-                .when().get("/board/next-generation")
+                .when().post("/board/next-generation")
                 .then()
                 .statusCode(200);
     }
@@ -27,7 +27,7 @@ class BoardResourceTest {
     @Test
     void canReset() {
         given()
-                .when().get("/board/reset")
+                .when().post("/board/reset")
                 .then()
                 .statusCode(200);
     }

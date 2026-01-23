@@ -5,9 +5,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 class GameBoardTest {
@@ -25,7 +23,6 @@ class GameBoardTest {
         Cell cell = board.getCellAt(0, 0);
 
         assertNotNull(cell);
-        assertTrue(cell.isHit(0, 0));
     }
 
     @Test
@@ -54,14 +51,22 @@ class GameBoardTest {
             board.getCellAt(coord[0], coord[1]).resurrect();
         }
 
-        for (Cell current : board.getCells()) {
-            current.commitState();
+        for (Cell[] row : board.getCells()) {
+            for (Cell current : row) {
+                current.commitState();
+            }
         }
     }
 
     private long aliveCount() {
-        return board.getCells().stream()
-                .filter(Cell::isAlive)
-                .count();
+        long count = 0;
+        for (Cell[] row : board.getCells()) {
+            for (Cell cell : row) {
+                if (cell.isAlive()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

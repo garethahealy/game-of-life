@@ -15,14 +15,14 @@ class CellTest {
         Cell cell = new Cell(xCords, yCords);
 
         assertEquals(8, cell.getAdjacentCoordinates().size());
-        assertArrayEquals(new Integer[]{xCords - 1, yCords - 1}, cell.getAdjacentCoordinates().get(0));
-        assertArrayEquals(new Integer[]{xCords, yCords - 1}, cell.getAdjacentCoordinates().get(1));
-        assertArrayEquals(new Integer[]{xCords + 1, yCords - 1}, cell.getAdjacentCoordinates().get(2));
-        assertArrayEquals(new Integer[]{xCords - 1, yCords}, cell.getAdjacentCoordinates().get(3));
-        assertArrayEquals(new Integer[]{xCords + 1, yCords}, cell.getAdjacentCoordinates().get(4));
-        assertArrayEquals(new Integer[]{xCords - 1, yCords + 1}, cell.getAdjacentCoordinates().get(5));
-        assertArrayEquals(new Integer[]{xCords, yCords + 1}, cell.getAdjacentCoordinates().get(6));
-        assertArrayEquals(new Integer[]{xCords + 1, yCords + 1}, cell.getAdjacentCoordinates().get(7));
+        assertArrayEquals(new int[]{xCords - 1, yCords - 1}, cell.getAdjacentCoordinates().get(0));
+        assertArrayEquals(new int[]{xCords, yCords - 1}, cell.getAdjacentCoordinates().get(1));
+        assertArrayEquals(new int[]{xCords + 1, yCords - 1}, cell.getAdjacentCoordinates().get(2));
+        assertArrayEquals(new int[]{xCords - 1, yCords}, cell.getAdjacentCoordinates().get(3));
+        assertArrayEquals(new int[]{xCords + 1, yCords}, cell.getAdjacentCoordinates().get(4));
+        assertArrayEquals(new int[]{xCords - 1, yCords + 1}, cell.getAdjacentCoordinates().get(5));
+        assertArrayEquals(new int[]{xCords, yCords + 1}, cell.getAdjacentCoordinates().get(6));
+        assertArrayEquals(new int[]{xCords + 1, yCords + 1}, cell.getAdjacentCoordinates().get(7));
     }
 
     @Test
@@ -66,12 +66,5 @@ class CellTest {
         cell.commitState();
 
         assertTrue(cell.isAlive());
-    }
-
-    @Test
-    void isHit() {
-        Cell cell = new Cell(0, 0, Cell.State.DEAD);
-
-        assertTrue(cell.isHit(0, 0));
     }
 }

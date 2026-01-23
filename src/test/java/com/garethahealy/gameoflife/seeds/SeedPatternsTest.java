@@ -2,6 +2,10 @@ package com.garethahealy.gameoflife.seeds;
 
 import com.garethahealy.gameoflife.model.Cell;
 import com.garethahealy.gameoflife.model.GameBoard;
+import com.garethahealy.gameoflife.seeds.impl.GliderSeed;
+import com.garethahealy.gameoflife.seeds.impl.GosperGliderGunSeed;
+import com.garethahealy.gameoflife.seeds.impl.HeavyweightSpaceshipSeed;
+import com.garethahealy.gameoflife.seeds.impl.ThreeLineSeed;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,15 +26,8 @@ class SeedPatternsTest {
     }
 
     @Test
-    void allAliveSeed() {
-        new AllAliveSeed().process(board);
-
-        assertEquals(board.getWidth() * board.getHeight(), aliveCount());
-    }
-
-    @Test
     void gliderSeed() {
-        new GliderSeed().process(board);
+        new PatternApplier().applyAndCommit(board, new GliderSeed().process());
 
         assertEquals(5, aliveCount());
         assertAlive(2, 1);
@@ -42,7 +39,7 @@ class SeedPatternsTest {
 
     @Test
     void gosperGliderGunSeed() {
-        new GosperGliderGunSeed().process(board);
+        new PatternApplier().applyAndCommit(board, new GosperGliderGunSeed().process());
 
         assertEquals(14, aliveCount());
         assertAlive(1, 5);
@@ -63,7 +60,7 @@ class SeedPatternsTest {
 
     @Test
     void heavyweightSpaceshipSeed() {
-        new HeavyweightSpaceshipSeed().process(board);
+        new PatternApplier().applyAndCommit(board, new HeavyweightSpaceshipSeed().process());
 
         assertEquals(13, aliveCount());
         assertAlive(10, 11);
@@ -82,19 +79,8 @@ class SeedPatternsTest {
     }
 
     @Test
-    void squareSeed() {
-        new SquareSeed().process(board);
-
-        assertEquals(4, aliveCount());
-        assertAlive(1, 1);
-        assertAlive(2, 1);
-        assertAlive(2, 2);
-        assertAlive(1, 2);
-    }
-
-    @Test
     void threeLineSeed() {
-        new ThreeLineSeed().process(board);
+        new PatternApplier().applyAndCommit(board, new ThreeLineSeed().process());
 
         assertEquals(3, aliveCount());
         assertAlive(1, 1);
@@ -107,8 +93,14 @@ class SeedPatternsTest {
     }
 
     private long aliveCount() {
-        return board.getCells().stream()
-                .filter(Cell::isAlive)
-                .count();
+        long count = 0;
+        for (Cell[] row : board.getCells()) {
+            for (Cell cell : row) {
+                if (cell.isAlive()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
