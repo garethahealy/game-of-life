@@ -27,7 +27,7 @@ jobs:
           java-version: 21
           cache: "maven"
 
-      - uses: actions/setup-node@1f3c6957a35eafad3159815f5d1d9a4750f2c21b # v4
+      - uses: actions/setup-node@v6.2.0 # v6.2.0
         with:
           node-version: "latest"
           cache: "npm"
