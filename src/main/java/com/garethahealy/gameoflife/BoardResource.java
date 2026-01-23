@@ -1,10 +1,13 @@
 package com.garethahealy.gameoflife;
 
+import com.garethahealy.gameoflife.model.Cell;
 import com.garethahealy.gameoflife.model.GameBoard;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/board")
@@ -31,6 +34,25 @@ public class BoardResource {
     @Path("/reset")
     public com.garethahealy.gameoflife.model.Cell[][] reset() {
         gameBoard.reset();
+
+        return gameBoard.getCells();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/cell/{x}/{y}/toggle")
+    public com.garethahealy.gameoflife.model.Cell[][] toggleCell(@PathParam("x") int x, @PathParam("y") int y) {
+        Cell cell = gameBoard.getCellAt(x, y);
+        if (cell == null) {
+            throw new WebApplicationException("Cell not found", 404);
+        }
+
+        if (cell.isAlive()) {
+            cell.kill();
+        } else {
+            cell.resurrect();
+        }
+        cell.commitState();
 
         return gameBoard.getCells();
     }

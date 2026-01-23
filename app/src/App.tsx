@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchNextGeneration, fetchSeeds, resetBoard, seedBoard } from './api'
+import { fetchNextGeneration, fetchSeeds, resetBoard, seedBoard, toggleCell } from './api'
 import { POLL_INTERVAL_MS } from './config'
 import Board from './components/Board'
 import Controls from './components/Controls'
@@ -51,6 +51,23 @@ function App() {
       setCells(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to seed board')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleToggleCell = async (cell: Cell) => {
+    if (isRunning) {
+      return
+    }
+
+    setIsLoading(true)
+    setError(null)
+    try {
+      const data = await toggleCell(cell.xCords, cell.yCords)
+      setCells(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to toggle cell')
     } finally {
       setIsLoading(false)
     }
@@ -118,7 +135,11 @@ function App() {
         />
       </header>
       {error && <p className="error">{error}</p>}
-      {cells ? <Board cells={cells} /> : <p className="loading">Loading board...</p>}
+      {cells ? (
+        <Board cells={cells} canToggle={!isRunning && !isLoading} onToggleCell={handleToggleCell} />
+      ) : (
+        <p className="loading">Loading board...</p>
+      )}
     </div>
   )
 }
