@@ -3,79 +3,75 @@ package com.garethahealy.gameoflife.model;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @ApplicationScoped
 public class GameBoard {
 
-    private final Integer width;
-    private final Integer height;
-    private final List<Cell> cells;
+    private final int width;
+    private final int height;
+    private final Cell[][] cellGrid;
 
-    public Integer getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public List<Cell> getCells() {
-        return cells;
+    public Cell[][] getCells() {
+        return cellGrid;
     }
 
     public GameBoard() {
         this(50, 48);
     }
 
-    public GameBoard(Integer width, Integer height) {
+    public GameBoard(int width, int height) {
         this.width = width;
         this.height = height;
-        this.cells = new ArrayList<>();
+        this.cellGrid = new Cell[height][width];
     }
 
     @PostConstruct
     void init() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                cells.add(new Cell(x, y));
+                Cell cell = new Cell(x, y);
+                cellGrid[y][x] = cell;
             }
         }
     }
 
-    public Cell getCellAt(int xCords, Integer yCords) {
-        Cell answer = null;
-        for (Cell current : cells) {
-            if (current.isHit(xCords, yCords)) {
-                answer = current;
-                break;
+    public Cell getCellAt(int xCords, int yCords) {
+        if (xCords < 0 || yCords < 0 || xCords >= width || yCords >= height) {
+            return null;
+        }
+
+        return cellGrid[yCords][xCords];
+    }
+
+    public void nextGeneration() {
+        for (Cell[] row : cellGrid) {
+            for (Cell current : row) {
+                int aliveNeighbours = getAliveNeighbours(current);
+                current.process(aliveNeighbours);
             }
         }
 
-        return answer;
-    }
-
-    public List<Cell> nextGeneration() {
-        for (Cell current : getCells()) {
-            int aliveNeighbours = getAliveNeighbours(current);
-            current.process(aliveNeighbours);
+        for (Cell[] row : cellGrid) {
+            for (Cell current : row) {
+                current.commitState();
+            }
         }
-
-        for (Cell current : getCells()) {
-            current.commitState();
-        }
-
-        return getCells();
     }
 
     private int getAliveNeighbours(Cell current) {
         int answer = 0;
 
-        List<Integer[]> cords = current.getAdjacentCoordinates();
-        for (Integer[] xyCords : cords) {
-            Integer x = xyCords[0];
-            Integer y = xyCords[1];
+        for (int[] xyCords : current.getAdjacentCoordinates()) {
+            int x = xyCords[0];
+            int y = xyCords[1];
 
             Cell found = getCellAt(x, y);
             if (found != null && found.isAlive()) {
@@ -86,15 +82,17 @@ public class GameBoard {
         return answer;
     }
 
-    public List<Cell> reset() {
-        for (Cell current : getCells()) {
-            current.kill();
+    public void reset() {
+        for (Cell[] row : cellGrid) {
+            for (Cell current : row) {
+                current.kill();
+            }
         }
 
-        for (Cell current : getCells()) {
-            current.commitState();
+        for (Cell[] row : cellGrid) {
+            for (Cell current : row) {
+                current.commitState();
+            }
         }
-
-        return getCells();
     }
 }

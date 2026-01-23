@@ -6,10 +6,6 @@ export interface Cell {
     yCords: number
 }
 
-export interface Cells {
-    rows: Cell[][]
-}
-
 export interface SeedOption {
     id: string
     label: string

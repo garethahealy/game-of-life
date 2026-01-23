@@ -1,5 +1,7 @@
 package com.garethahealy.gameoflife.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
@@ -11,22 +13,35 @@ public class Cell {
         DEAD
     }
 
+    @JsonProperty("xCords")
     private final int xCords;
+    @JsonProperty("yCords")
     private final int yCords;
-    private final List<Integer[]> adjacentCoordinates;
+    @JsonIgnore
+    private final List<int[]> adjacentCoordinates;
 
+    @JsonProperty("state")
     private State state;
+    @JsonIgnore
     private State nextState;
 
-    public int getXCords() {
+    @JsonIgnore
+    private int getXCords() {
         return xCords;
     }
 
+    @JsonIgnore
     public int getYCords() {
         return yCords;
     }
 
-    public List<Integer[]> getAdjacentCoordinates() {
+    @JsonIgnore
+    public State getState() {
+        return state;
+    }
+
+    @JsonIgnore
+    public List<int[]> getAdjacentCoordinates() {
         return adjacentCoordinates;
     }
 
@@ -42,17 +57,17 @@ public class Cell {
         this.adjacentCoordinates = initAdjacentCoordinates(xCords, yCords);
     }
 
-    private List<Integer[]> initAdjacentCoordinates(int xCords, int yCords) {
-        Integer[] topLeft = new Integer[]{xCords - 1, yCords - 1};
-        Integer[] topMiddle = new Integer[]{xCords, yCords - 1};
-        Integer[] topRight = new Integer[]{xCords + 1, yCords - 1};
+    private List<int[]> initAdjacentCoordinates(int xCords, int yCords) {
+        int[] topLeft = new int[]{xCords - 1, yCords - 1};
+        int[] topMiddle = new int[]{xCords, yCords - 1};
+        int[] topRight = new int[]{xCords + 1, yCords - 1};
 
-        Integer[] middleLeft = new Integer[]{xCords - 1, yCords};
-        Integer[] middleRight = new Integer[]{xCords + 1, yCords};
+        int[] middleLeft = new int[]{xCords - 1, yCords};
+        int[] middleRight = new int[]{xCords + 1, yCords};
 
-        Integer[] bottomLeft = new Integer[]{xCords - 1, yCords + 1};
-        Integer[] bottomMiddle = new Integer[]{xCords, yCords + 1};
-        Integer[] bottomRight = new Integer[]{xCords + 1, yCords + 1};
+        int[] bottomLeft = new int[]{xCords - 1, yCords + 1};
+        int[] bottomMiddle = new int[]{xCords, yCords + 1};
+        int[] bottomRight = new int[]{xCords + 1, yCords + 1};
 
         return List.of(topLeft, topMiddle, topRight, middleLeft, middleRight, bottomLeft, bottomMiddle, bottomRight);
     }
@@ -79,16 +94,14 @@ public class Cell {
         }
     }
 
+    @JsonIgnore
     public boolean isAlive() {
         return state == State.ALIVE;
     }
 
+    @JsonIgnore
     public boolean isDead() {
         return state == State.DEAD;
-    }
-
-    public boolean isHit(int findXCords, int findYCords) {
-        return xCords == findXCords && yCords == findYCords;
     }
 
     public void kill() {
@@ -103,17 +116,13 @@ public class Cell {
         this.state = this.nextState;
     }
 
-    public com.garethahealy.gameoflife.records.Cell toRecord() {
-        return new com.garethahealy.gameoflife.records.Cell(state, xCords, yCords);
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("state", state)
                 .append("nextState", nextState)
-                .append("xCords", xCords)
-                .append("yCords", yCords)
+                .append("xCords", getXCords())
+                .append("yCords", getYCords())
                 .append("adjacentCoordinates", adjacentCoordinates)
                 .toString();
     }

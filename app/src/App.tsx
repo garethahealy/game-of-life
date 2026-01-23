@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { fetchNextGeneration, resetBoard, seedBoard } from './api'
-import { POLL_INTERVAL_MS, SEEDS } from './config'
+import { fetchNextGeneration, fetchSeeds, resetBoard, seedBoard } from './api'
+import { POLL_INTERVAL_MS } from './config'
 import Board from './components/Board'
 import Controls from './components/Controls'
-import type { Cells } from './types'
+import type { Cell, SeedOption } from './types'
 
 function App() {
-    const [cells, setCells] = useState<Cells | null>(null)
+    const [cells, setCells] = useState<Cell[][] | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [isRunning, setIsRunning] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
-    const [selectedSeed, setSelectedSeed] = useState(SEEDS[0].id)
+    const [seeds, setSeeds] = useState<SeedOption[]>([])
+    const [selectedSeed, setSelectedSeed] = useState('')
 
     const loadInitial = async () => {
         setIsLoading(true)
@@ -39,6 +40,10 @@ function App() {
     }
 
     const handleSeed = async (seed: string) => {
+        if (!seed) {
+            return
+        }
+
         setIsLoading(true)
         setError(null)
         try {
@@ -51,8 +56,33 @@ function App() {
         }
     }
 
+    const formatSeedLabel = (seedId: string) =>
+        seedId
+            .replace(/Seed$/, '')
+            .replace(/([a-z])([A-Z])/g, '$1 $2')
+            .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+            .replace(/\bR Pentomino\b/, 'R-pentomino')
+
+    const loadSeedOptions = async () => {
+        setError(null)
+        try {
+            const seedIds = await fetchSeeds()
+            const options = seedIds.map((id) => ({
+                id,
+                label: formatSeedLabel(id),
+            }))
+            setSeeds(options)
+            if (!selectedSeed && options.length > 0) {
+                setSelectedSeed(options[0].id)
+            }
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to load seeds')
+        }
+    }
+
     useEffect(() => {
         loadInitial()
+        void loadSeedOptions()
     }, [])
 
     useEffect(() => {
@@ -79,7 +109,7 @@ function App() {
                     isRunning={isRunning}
                     isLoading={isLoading}
                     selectedSeed={selectedSeed}
-                    seeds={SEEDS}
+                    seeds={seeds}
                     onToggleRun={() => setIsRunning((prev) => !prev)}
                     onStep={handleStep}
                     onReset={loadInitial}
