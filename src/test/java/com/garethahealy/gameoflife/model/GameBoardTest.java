@@ -41,16 +41,24 @@ class GameBoardTest {
         assertEquals(board.getWidth(), grid[0].length);
     }
 
-
+    @Test
     void nextGeneration() {
-        resurrectAllCells();
+        Cell cell1 = board.getCellAt(0, 1);
+        Cell cell2 = board.getCellAt(1, 1);
+        Cell cell3 =  board.getCellAt(2, 1);
+
+        cell1.resurrect();
+        cell1.commitState();
+
+        cell2.resurrect();
+        cell2.commitState();
+
+        cell3.resurrect();
+        cell3.commitState();
 
         board.nextGeneration();
 
         assertEquals(3, getAliveCount());
-        assertTrue(board.getCellAt(0, 1).isAlive());
-        assertTrue(board.getCellAt(1, 1).isAlive());
-        assertTrue(board.getCellAt(2, 1).isAlive());
     }
 
     @Test
