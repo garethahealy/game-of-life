@@ -86,11 +86,6 @@ public class GameBoard {
         for (Cell[] row : cellGrid) {
             for (Cell current : row) {
                 current.kill();
-            }
-        }
-
-        for (Cell[] row : cellGrid) {
-            for (Cell current : row) {
                 current.commitState();
             }
         }
