@@ -9,7 +9,14 @@ import java.util.Objects;
 @ApplicationScoped
 public class PatternApplier {
 
-    public void apply(GameBoard board, SeedPattern pattern) {
+    public void applyAndCommit(GameBoard board, SeedPattern pattern) {
+        board.reset();
+
+        apply(board, pattern);
+        commit(board);
+    }
+
+    private void apply(GameBoard board, SeedPattern pattern) {
         Objects.requireNonNull(board, "board");
         Objects.requireNonNull(pattern, "pattern");
 
@@ -33,13 +40,6 @@ public class PatternApplier {
                 }
             }
         }
-    }
-
-    public void applyAndCommit(GameBoard board, SeedPattern pattern) {
-        board.reset();
-
-        apply(board, pattern);
-        commit(board);
     }
 
     private void commit(GameBoard board) {
