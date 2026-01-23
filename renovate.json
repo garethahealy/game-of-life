@@ -3,5 +3,12 @@
   "extends": [
     "config:best-practices",
     "schedule:earlyMondays"
+  ],
+  "timezone": "Etc/UTC",
+  "enabledManagers": [
+    "npm",
+    "maven",
+    "github-actions",
+    "pre-commit"
   ]
 }
