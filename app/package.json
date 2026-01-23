@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --base=/gof",
     "build": "vite build --base=/gof",
-    "preview": "vite preview --base=/gof"
+    "preview": "vite preview --base=/gof",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,html,json,md,yaml,yml}\" \"public/**/*.{html,css,json}\" \"*.{json,md,yaml,yml}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,html,json,md,yaml,yml}\" \"public/**/*.{html,css,json}\" \"*.{json,md,yaml,yml}\""
   },
   "dependencies": {
     "react": "^19.1.0",
