@@ -33,7 +33,7 @@ public class PatternApplier {
                     Cell cell = board.getCellAt(x + offsetX, y + offsetY);
                     if (cell == null) {
                         throw new IllegalArgumentException(
-                                "Pattern out of bounds at x=" + (x + offsetX) + ", y=" + (y + offsetY));
+                            "Pattern out of bounds at x=" + (x + offsetX) + ", y=" + (y + offsetY));
                     }
 
                     cell.resurrect();

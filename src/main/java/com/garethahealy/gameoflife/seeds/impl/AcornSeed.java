@@ -8,9 +8,9 @@ public class AcornSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".O.....",
-                "...O...",
-                "OO..OOO"
+            ".O.....",
+            "...O...",
+            "OO..OOO"
         };
         return SeedPattern.centered(pattern);
     }

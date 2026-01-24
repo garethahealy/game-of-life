@@ -8,8 +8,8 @@ public class ToadSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".OOO",
-                "OOO."
+            ".OOO",
+            "OOO."
         };
         return SeedPattern.centered(pattern);
     }

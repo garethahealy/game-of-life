@@ -8,10 +8,10 @@ public class LoafSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".OO.",
-                "O..O",
-                ".O.O",
-                "..O."
+            ".OO.",
+            "O..O",
+            ".O.O",
+            "..O."
         };
         return SeedPattern.centered(pattern);
     }

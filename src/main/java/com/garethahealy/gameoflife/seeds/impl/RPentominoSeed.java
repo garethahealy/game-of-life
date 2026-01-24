@@ -8,9 +8,9 @@ public class RPentominoSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".OO",
-                "OO.",
-                ".O."
+            ".OO",
+            "OO.",
+            ".O."
         };
         return SeedPattern.centered(pattern);
     }

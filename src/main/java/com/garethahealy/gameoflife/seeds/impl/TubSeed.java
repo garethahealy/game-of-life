@@ -8,9 +8,9 @@ public class TubSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".O.",
-                "O.O",
-                ".O."
+            ".O.",
+            "O.O",
+            ".O."
         };
         return SeedPattern.centered(pattern);
     }

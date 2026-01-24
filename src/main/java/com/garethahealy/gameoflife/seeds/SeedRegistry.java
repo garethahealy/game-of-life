@@ -107,9 +107,9 @@ public class SeedRegistry {
 
         try (var paths = Files.list(directory)) {
             paths.filter(file -> file.getFileName().toString().endsWith(".class"))
-                    .map(file -> file.getFileName().toString())
-                    .map(fileName -> fileName.substring(0, fileName.length() - ".class".length()))
-                    .forEach(className -> addSeedIfSupported(seeds, className));
+                .map(file -> file.getFileName().toString())
+                .map(fileName -> fileName.substring(0, fileName.length() - ".class".length()))
+                .forEach(className -> addSeedIfSupported(seeds, className));
         }
     }
 
@@ -122,9 +122,9 @@ public class SeedRegistry {
 
         try (var jar = connection.getJarFile()) {
             jar.stream().filter(entry -> !entry.isDirectory()).map(entry -> entry.getName())
-                    .filter(name -> name.startsWith(path)).filter(name -> name.endsWith(".class"))
-                    .map(name -> name.substring(path.length(), name.length() - ".class".length()))
-                    .forEach(className -> addSeedIfSupported(seeds, className));
+                .filter(name -> name.startsWith(path)).filter(name -> name.endsWith(".class"))
+                .map(name -> name.substring(path.length(), name.length() - ".class".length()))
+                .forEach(className -> addSeedIfSupported(seeds, className));
         }
     }
 

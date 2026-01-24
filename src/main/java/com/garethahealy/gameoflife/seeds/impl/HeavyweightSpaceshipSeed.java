@@ -8,10 +8,10 @@ public class HeavyweightSpaceshipSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "...O..O",
-                "O...O.O",
-                ".O....O",
-                "OOOOOO."
+            "...O..O",
+            "O...O.O",
+            ".O....O",
+            "OOOOOO."
         };
         return SeedPattern.centered(pattern);
     }

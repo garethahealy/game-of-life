@@ -8,9 +8,9 @@ public class BoatSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "OO.",
-                "O.O",
-                ".O."
+            "OO.",
+            "O.O",
+            ".O."
         };
         return SeedPattern.centered(pattern);
     }

@@ -8,10 +8,10 @@ public class LightweightSpaceshipSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".O..O",
-                "O....",
-                "O...O",
-                "OOOO."
+            ".O..O",
+            "O....",
+            "O...O",
+            "OOOO."
         };
         return SeedPattern.centered(pattern);
     }

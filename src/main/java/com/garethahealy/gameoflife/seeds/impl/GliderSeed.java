@@ -8,9 +8,9 @@ public class GliderSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                ".O.",
-                "..O",
-                "OOO"
+            ".O.",
+            "..O",
+            "OOO"
         };
         return SeedPattern.centered(pattern);
     }

@@ -8,10 +8,10 @@ public class BeaconSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "OO..",
-                "OO..",
-                "..OO",
-                "..OO"
+            "OO..",
+            "OO..",
+            "..OO",
+            "..OO"
         };
         return SeedPattern.centered(pattern);
     }

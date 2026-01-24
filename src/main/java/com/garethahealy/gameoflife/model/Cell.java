@@ -121,7 +121,7 @@ public class Cell {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("state", state).append("nextState", nextState)
-                .append("xCords", getXCords()).append("yCords", getYCords())
-                .append("adjacentCoordinates", adjacentCoordinates).toString();
+            .append("xCords", getXCords()).append("yCords", getYCords())
+            .append("adjacentCoordinates", adjacentCoordinates).toString();
     }
 }

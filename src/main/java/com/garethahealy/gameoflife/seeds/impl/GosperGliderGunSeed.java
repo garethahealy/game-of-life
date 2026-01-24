@@ -8,13 +8,13 @@ public class GosperGliderGunSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "......OO.",
-                ".....O...",
-                "....O....",
-                "OO..O...O",
-                "OO..O....",
-                ".....O...",
-                "......OO."
+            "......OO.",
+            ".....O...",
+            "....O....",
+            "OO..O...O",
+            "OO..O....",
+            ".....O...",
+            "......OO."
         };
         return SeedPattern.centered(pattern);
     }

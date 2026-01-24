@@ -8,9 +8,9 @@ public class DiehardSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "......O.",
-                "OO......",
-                ".O...OOO"
+            "......O.",
+            "OO......",
+            ".O...OOO"
         };
         return SeedPattern.centered(pattern);
     }

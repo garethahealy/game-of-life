@@ -8,9 +8,9 @@ public class PentadecathlonSeed implements Seed {
     @Override
     public SeedPattern process() {
         String[] pattern = {
-                "..O....O..",
-                "OO.OOOO.OO",
-                "..O....O.."
+            "..O....O..",
+            "OO.OOOO.OO",
+            "..O....O.."
         };
         return SeedPattern.centered(pattern);
     }
