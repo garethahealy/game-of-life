@@ -1,5 +1,6 @@
 package com.garethahealy.gameoflife;
 
+import com.garethahealy.gameoflife.model.Cell;
 import com.garethahealy.gameoflife.model.GameBoard;
 import com.garethahealy.gameoflife.seeds.PatternApplier;
 import com.garethahealy.gameoflife.seeds.Seed;
@@ -34,8 +35,7 @@ public class SeedResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{seed}")
-    public com.garethahealy.gameoflife.model.Cell[][] seed(@PathParam(value = "seed") String seed,
-                                                           @QueryParam(value = "option") String option) {
+    public Cell[][] seed(@PathParam(value = "seed") String seed, @QueryParam(value = "option") String option) {
         Seed answer = seedRegistry.getSeed(seed, option);
         SeedPattern pattern;
         try {

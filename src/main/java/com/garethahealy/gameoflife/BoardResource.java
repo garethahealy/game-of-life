@@ -19,7 +19,7 @@ public class BoardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/next-generation")
-    public com.garethahealy.gameoflife.model.Cell[][] nextGeneration() {
+    public Cell[][] nextGeneration() {
         gameBoard.nextGeneration();
 
         return gameBoard.getCells();
@@ -28,7 +28,7 @@ public class BoardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/reset")
-    public com.garethahealy.gameoflife.model.Cell[][] reset() {
+    public Cell[][] reset() {
         gameBoard.reset();
 
         return gameBoard.getCells();
@@ -37,7 +37,7 @@ public class BoardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/randomize")
-    public com.garethahealy.gameoflife.model.Cell[][] randomize(@QueryParam("aliveProbability") Double aliveProbability) {
+    public Cell[][] randomize(@QueryParam("aliveProbability") Double aliveProbability) {
         double probability = aliveProbability == null ? 0.3 : aliveProbability;
         gameBoard.randomize(probability);
 
@@ -47,7 +47,7 @@ public class BoardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/cell/{x}/{y}/toggle")
-    public com.garethahealy.gameoflife.model.Cell[][] toggleCell(@PathParam("x") int x, @PathParam("y") int y) {
+    public Cell[][] toggleCell(@PathParam("x") int x, @PathParam("y") int y) {
         Cell cell = gameBoard.getCellAt(x, y);
         if (cell == null) {
             throw new WebApplicationException("Cell not found", 404);
