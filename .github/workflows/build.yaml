@@ -52,7 +52,10 @@ jobs:
       - name: Build frontend
         run: |
           cd app
+
           npm ci
+          npm audit signatures
+
           npm run build
 
   analyze:
