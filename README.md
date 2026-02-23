@@ -10,7 +10,7 @@ More on the rules: http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 
 ## Build
 
-Backend (Java 21 / Quarkus):
+Backend (Java 25 / Quarkus):
 
 ```bash
 ./mvnw clean install -Pnative
