@@ -2,6 +2,7 @@ package com.garethahealy.gameoflife;
 
 import com.garethahealy.gameoflife.model.Cell;
 import com.garethahealy.gameoflife.model.GameBoard;
+import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -19,47 +20,43 @@ public class BoardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/next-generation")
-    public Cell[][] nextGeneration() {
-        gameBoard.nextGeneration();
-
-        return gameBoard.getCells();
+    public Uni<Cell[][]> nextGeneration() {
+        return Uni.createFrom().item(gameBoard::nextGeneration);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/reset")
-    public Cell[][] reset() {
-        gameBoard.reset();
-
-        return gameBoard.getCells();
+    public Uni<Cell[][]> reset() {
+        return Uni.createFrom().item(gameBoard::reset);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/randomize")
-    public Cell[][] randomize(@QueryParam("aliveProbability") Double aliveProbability) {
+    public Uni<Cell[][]> randomize(@QueryParam("aliveProbability") Double aliveProbability) {
         double probability = aliveProbability == null ? 0.3 : aliveProbability;
-        gameBoard.randomize(probability);
-
-        return gameBoard.getCells();
+        return Uni.createFrom().item(() -> gameBoard.randomize(probability));
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/cell/{x}/{y}/toggle")
-    public Cell[][] toggleCell(@PathParam("x") int x, @PathParam("y") int y) {
-        Cell cell = gameBoard.getCellAt(x, y);
-        if (cell == null) {
-            throw new WebApplicationException("Cell not found", 404);
-        }
+    public Uni<Cell[][]> toggleCell(@PathParam("x") int x, @PathParam("y") int y) {
+        return Uni.createFrom().item(() -> {
+            Cell cell = gameBoard.getCellAt(x, y);
+            if (cell == null) {
+                throw new WebApplicationException("Cell not found", 404);
+            }
 
-        if (cell.isAlive()) {
-            cell.kill();
-        } else {
-            cell.resurrect();
-        }
-        cell.commitState();
+            if (cell.isAlive()) {
+                cell.kill();
+            } else {
+                cell.resurrect();
+            }
 
-        return gameBoard.getCells();
+            cell.commitState();
+            return gameBoard.getCells();
+        });
     }
 }

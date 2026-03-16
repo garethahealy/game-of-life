@@ -52,7 +52,7 @@ public class GameBoard {
         return cellGrid[yCords][xCords];
     }
 
-    public void nextGeneration() {
+    public Cell[][] nextGeneration() {
         for (Cell[] row : cellGrid) {
             for (Cell current : row) {
                 int aliveNeighbours = getAliveNeighbours(current);
@@ -65,6 +65,8 @@ public class GameBoard {
                 current.commitState();
             }
         }
+
+        return cellGrid;
     }
 
     private int getAliveNeighbours(Cell current) {
@@ -83,16 +85,18 @@ public class GameBoard {
         return answer;
     }
 
-    public void reset() {
+    public Cell[][] reset() {
         for (Cell[] row : cellGrid) {
             for (Cell current : row) {
                 current.kill();
                 current.commitState();
             }
         }
+
+        return cellGrid;
     }
 
-    public void randomize(double aliveProbability) {
+    public Cell[][] randomize(double aliveProbability) {
         if (aliveProbability < 0 || aliveProbability > 1) {
             throw new IllegalArgumentException("Alive probability must be between 0 and 1");
         }
@@ -108,5 +112,7 @@ public class GameBoard {
                 current.commitState();
             }
         }
+
+        return cellGrid;
     }
 }
