@@ -1,0 +1,8 @@
+---
+description: Core project context for the Game of Life codebase
+alwaysApply: true
+---
+
+# Project Overview
+
+This project is a Conway's Game of Life implementation with a Quarkus REST backend (Java 25) and a React + TypeScript + Vite frontend (in `app/`).

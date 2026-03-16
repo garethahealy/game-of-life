@@ -1,0 +1,24 @@
+---
+description: Java and Quarkus coding standards for the backend
+globs: "**/*.java"
+alwaysApply: true
+---
+
+# Java & Quarkus Standards
+
+- Target Java 25 features (records, sealed classes, pattern matching, etc.)
+- Use Quarkus REST (`quarkus-rest`) idioms and best practices
+- Use descriptive method and variable names in camelCase
+- Implement RESTful API design patterns (proper HTTP methods, status codes)
+- Use `@Inject` via constructor injection, never field injection
+
+# Testing
+
+- Write unit tests with JUnit 5 and `@QuarkusTest`
+- Write integration tests with `@QuarkusIntegrationTest`
+- Use REST Assured for endpoint testing
+
+# Build
+
+- Manage dependencies via Maven (`pom.xml`); use `./mvnw` to build
+- Quarkus BOM version is managed in `<quarkus.platform.version>`

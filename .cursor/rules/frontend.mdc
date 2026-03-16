@@ -1,0 +1,13 @@
+---
+description: TypeScript and React conventions for the Vite frontend
+globs: "**/*.{ts,tsx}"
+alwaysApply: true
+---
+
+# Frontend Standards
+
+- Source lives in `app/`; use Vite for dev server and builds
+- Use functional React components with hooks
+- Extract reusable logic into custom hooks
+- Use descriptive variable and function names in camelCase
+- Keep components small and focused on a single responsibility
