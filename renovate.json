@@ -2,13 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:best-practices",
+    ":enablePreCommit",
     "schedule:earlyMondays"
   ],
-  "timezone": "Etc/UTC",
-  "enabledManagers": [
-    "npm",
-    "maven",
-    "github-actions",
-    "pre-commit"
-  ]
+  "timezone": "Etc/UTC"
 }
