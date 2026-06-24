@@ -15,7 +15,7 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/editorconfig-checker/editorconfig-checker
-    rev: 'v3.6.0'  # pick a git hash / tag to point to
+    rev: 'v3.7.0'  # pick a git hash / tag to point to
     hooks:
       - id: editorconfig-checker
         alias: ec
